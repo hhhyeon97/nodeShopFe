@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Container, Button } from "react-bootstrap";
-import SearchBox from "../component/SearchBox";
-import { useDispatch, useSelector } from "react-redux";
-import { productActions } from "../action/productAction";
-import NewItemDialog from "../component/NewItemDialog";
-import * as types from "../constants/product.constants";
-import ReactPaginate from "react-paginate";
-import { useSearchParams, useNavigate } from "react-router-dom";
-import { commonUiActions } from "../action/commonUiAction";
-import ProductTable from "../component/ProductTable";
+import React, { useEffect, useState } from 'react';
+import { Container, Button } from 'react-bootstrap';
+import SearchBox from '../component/SearchBox';
+import { useDispatch, useSelector } from 'react-redux';
+import { productActions } from '../action/productAction';
+import NewItemDialog from '../component/NewItemDialog';
+import * as types from '../constants/product.constants';
+import ReactPaginate from 'react-paginate';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { commonUiActions } from '../action/commonUiAction';
+import ProductTable from '../component/ProductTable';
 
 const AdminProduct = () => {
   const navigate = useNavigate();
@@ -16,20 +16,20 @@ const AdminProduct = () => {
   const dispatch = useDispatch();
   const [showDialog, setShowDialog] = useState(false);
   const [searchQuery, setSearchQuery] = useState({
-    page: query.get("page") || 1,
-    name: query.get("name") || "",
+    page: query.get('page') || 1,
+    name: query.get('name') || '',
   }); //검색 조건들을 저장하는 객체
 
-  const [mode, setMode] = useState("new");
+  const [mode, setMode] = useState('new');
   const tableHeader = [
-    "#",
-    "Sku",
-    "Name",
-    "Price",
-    "Stock",
-    "Image",
-    "Status",
-    "",
+    '#',
+    'Sku',
+    'Name',
+    'Price',
+    'Stock',
+    'Image',
+    'Status',
+    '',
   ];
 
   //상품리스트 가져오기 (url쿼리 맞춰서)
@@ -49,7 +49,9 @@ const AdminProduct = () => {
 
   const handleClickNewItem = () => {
     //new 모드로 설정하고
+    setMode('new');
     // 다이얼로그 열어주기
+    setShowDialog(true);
   };
 
   const handlePageClick = ({ selected }) => {

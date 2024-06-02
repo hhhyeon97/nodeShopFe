@@ -105,7 +105,7 @@ const AdminProduct = () => {
       <NewItemDialog
         mode={mode}
         showDialog={showDialog}
-        setShowDialog={showDialog}
+        setShowDialog={setShowDialog}
       />
     </div>
   );

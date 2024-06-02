@@ -14,11 +14,14 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const error = useSelector((state) => state.user.error);
 
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(userActions.resetError());
+  //   };
+  // }, [dispatch]);
+
   useEffect(() => {
-    dispatch(userActions.resetError());
-    return () => {
-      dispatch(userActions.resetError());
-    };
+    dispatch(userActions.resetError()); // 마운트 시 에러 리셋
   }, [dispatch]);
 
   const loginWithEmail = (event) => {

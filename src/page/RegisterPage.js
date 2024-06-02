@@ -50,6 +50,16 @@ const RegisterPage = () => {
     }
   };
 
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(userActions.resetError()); // 언마운트 시 에러 리셋
+  //   };
+  // }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(userActions.resetError()); // 마운트 시 에러 리셋
+  }, [dispatch]);
+
   return (
     <Container className="register-area">
       {error && (

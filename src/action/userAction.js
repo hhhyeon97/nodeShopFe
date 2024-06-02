@@ -53,12 +53,16 @@ const registerUser =
           'success',
         ),
       );
-      dispatch({ type: types.RESET_ERROR }); // 에러 상태 초기화
+      // dispatch({ type: types.RESET_ERROR }); // 에러 상태 초기화
       navigate('/login');
     } catch (error) {
       dispatch({ type: types.REGISTER_USER_FAIL, payload: error.error });
     }
   };
+
+export const resetError = () => ({
+  type: types.RESET_ERROR,
+});
 
 export const userActions = {
   loginWithToken,
@@ -66,4 +70,5 @@ export const userActions = {
   logout,
   loginWithGoogle,
   registerUser,
+  resetError,
 };

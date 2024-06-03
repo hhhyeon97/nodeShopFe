@@ -263,9 +263,18 @@ body {
 
 /* =========================== */
 
-.no-result-message {
+.no-result-message,
+.search-results-message {
   text-align: center;
   font-size: 20px;
   font-weight: bold;
   color: gray;
+  margin: 15px auto;
+}
+
+.loading-message {
+  text-align: center;
+  font-size: 35px;
+  font-weight: bold;
+  color: #46433e;
 }

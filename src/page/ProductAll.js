@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { productActions } from '../action/productAction';
 import { commonUiActions } from '../action/commonUiAction';
+import { TextAlignment } from '@cloudinary/url-gen/qualifiers';
 
 const ProductAll = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,8 @@ const ProductAll = () => {
   }, [dispatch, searchTerm]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    // 로딩스피너 동글동글한 거 찾아서 교체하기
+    return <div className="loading-message">Loading...</div>;
   }
 
   if (error) {
@@ -36,6 +38,11 @@ const ProductAll = () => {
 
   return (
     <Container>
+      {searchTerm && productList.length > 0 && (
+        <div className="search-results-message">
+          총 {productList.length} 개의 상품이 검색 되었습니다.
+        </div>
+      )}
       <Row>
         {productList.map((product) => (
           <Col key={product._id} md={3} sm={12}>

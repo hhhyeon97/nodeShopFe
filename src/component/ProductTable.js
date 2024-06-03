@@ -1,7 +1,7 @@
-import React from "react";
-import Button from "react-bootstrap/Button";
-import Table from "react-bootstrap/Table";
-import { currencyFormat } from "../utils/number";
+import React from 'react';
+import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
+import { currencyFormat } from '../utils/number';
 const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
   return (
     <div className="overflow-x">
@@ -19,7 +19,7 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
               <tr key={index}>
                 <th>{index}</th>
                 <th>{item.sku}</th>
-                <th style={{ minWidth: "100px" }}>{item.name}</th>
+                <th style={{ minWidth: '100px' }}>{item.name}</th>
                 <th>{currencyFormat(item.price)}</th>
                 <th>
                   {Object.keys(item.stock).map((size, index) => (
@@ -32,7 +32,7 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
                   <img src={item.image} width={100} alt="image" />
                 </th>
                 <th>{item.status}</th>
-                <th style={{ minWidth: "100px" }}>
+                <th style={{ minWidth: '100px' }}>
                   <Button
                     size="sm"
                     variant="danger"

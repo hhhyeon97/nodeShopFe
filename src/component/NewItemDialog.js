@@ -31,14 +31,18 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   console.log('stock', stock);
 
   const handleClose = () => {
-    //모든걸 초기화시키고;
+    //모든걸 초기화시키고
+    setFormData({ ...InitialFormData });
+    setStock([]);
+    setStockError(false);
     // 다이얼로그 닫아주기
+    setShowDialog(false);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('formData', formData);
-    console.log('stock !', stock);
+    // console.log('formData', formData);
+    // console.log('stock !', stock);
     //재고를 입력했는지 확인, 아니면 에러
     if (stock.length === 0) return setStockError(true);
     // 재고를 배열에서 객체로 바꿔주기
@@ -46,7 +50,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     const totalStock = stock.reduce((total, item) => {
       return { ...total, [item[0]]: parseInt(item[1]) };
     }, {});
-    console.log('totalStock', totalStock);
+    // console.log('totalStock', totalStock);
     if (mode === 'new') {
       //새 상품 만들기
       dispatch(

@@ -9,9 +9,11 @@ const ProductCard = ({ product }) => {
   };
   return (
     <div className="card" onClick={() => showProduct('hard_code')}>
-      <img src={product.image} alt={product.name} />
-      <div>{product.name}</div>
-      <div>{currencyFormat(product.price) + '원'}</div>
+      <img src={product.image} alt={product.name} width={220} height={330} />
+      <div className="product-name">{product.name}</div>
+      <div className="product-price">
+        {currencyFormat(product.price) + '원'}
+      </div>
     </div>
   );
 };

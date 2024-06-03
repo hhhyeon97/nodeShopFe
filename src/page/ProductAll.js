@@ -9,12 +9,30 @@ import { commonUiActions } from '../action/commonUiAction';
 const ProductAll = () => {
   const dispatch = useDispatch();
   // const error = useSelector((state) => state.product.error);
-  const { productList } = useSelector((state) => state.product);
+  const { productList, loading, error } = useSelector((state) => state.product);
+  const [searchParams] = useSearchParams();
+  const searchTerm = searchParams.get('name') || '';
 
   // 처음 로딩하면 상품리스트 불러오기
   useEffect(() => {
-    dispatch(productActions.getProductList());
-  }, [dispatch]);
+    dispatch(productActions.getProductList({ name: searchTerm }));
+  }, [dispatch, searchTerm]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (productList.length === 0) {
+    return (
+      <div className="no-result-message">
+        "{searchTerm}"에 해당하는 상품이 없습니다.
+      </div>
+    );
+  }
 
   return (
     <Container>

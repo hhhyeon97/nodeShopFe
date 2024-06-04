@@ -37,8 +37,10 @@ const editProduct = (formData, id) => async (dispatch) => {
   try {
     dispatch({ type: types.PRODUCT_EDIT_REQUEST });
     const response = await api.put(`/product/${id}`, formData);
+    // console.log('API response:', response);
     if (response.status !== 200) throw new Error(response.error);
     dispatch({ type: types.PRODUCT_EDIT_SUCCESS, payload: response.data.data });
+    // console.log('Product edit success:', response.data.data);
     dispatch(commonUiActions.showToastMessage('상품 수정 완료', 'success'));
     dispatch(getProductList({ page: 1, name: '' }));
   } catch (error) {

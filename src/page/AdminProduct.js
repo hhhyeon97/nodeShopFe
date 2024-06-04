@@ -104,7 +104,7 @@ const AdminProduct = () => {
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
           pageCount={totalPageNum}
-          forcePage={searchQuery.page - 1}
+          forcePage={parseInt(searchQuery.page) - 1}
           previousLabel="<"
           renderOnZeroPageCount={null}
           pageClassName="page-item"

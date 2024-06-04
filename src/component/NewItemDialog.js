@@ -65,7 +65,6 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
           selectedProduct._id,
         ),
       );
-      // console.log('오잉', formData);
       setShowDialog(false);
     }
   };

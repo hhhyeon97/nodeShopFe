@@ -26,6 +26,7 @@ const createProduct = (formData) => async (dispatch) => {
     if (response.status !== 200) throw new Error(response.error);
     dispatch({ type: types.PRODUCT_CREATE_SUCCESS });
     dispatch(commonUiActions.showToastMessage('상품 생성 완료', 'success'));
+    dispatch(getProductList({ page: 1, name: '' }));
   } catch (error) {
     dispatch({ type: types.PRODUCT_CREATE_FAIL, payload: error.error });
     dispatch(commonUiActions.showToastMessage(error.error, 'error'));

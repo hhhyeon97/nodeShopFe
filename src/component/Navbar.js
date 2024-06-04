@@ -39,6 +39,7 @@ const Navbar = ({ user }) => {
       navigate(`?name=${keyword}`);
     }
   };
+
   const logout = () => {
     dispatch(userActions.logout());
   };

@@ -188,7 +188,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
           </Button>
           <div className="mt-2">
             {stock.map((item, index) => (
-              <Row key={index}>
+              <Row key={`${index}${item[0]}`}>
                 <Col sm={4}>
                   <Form.Select
                     onChange={(event) =>

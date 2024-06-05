@@ -9,7 +9,6 @@ import { TextAlignment } from '@cloudinary/url-gen/qualifiers';
 
 const ProductAll = () => {
   const dispatch = useDispatch();
-  // const error = useSelector((state) => state.product.error);
   const { productList, loading, error } = useSelector((state) => state.product);
   const [searchParams] = useSearchParams();
   const searchTerm = searchParams.get('name') || '';

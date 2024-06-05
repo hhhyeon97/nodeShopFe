@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { Container, Row, Col, Button, Dropdown } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { productActions } from "../action/productAction";
-import { ColorRing } from "react-loader-spinner";
-import { cartActions } from "../action/cartAction";
-import { commonUiActions } from "../action/commonUiAction";
-import { currencyFormat } from "../utils/number";
-import "../style/productDetail.style.css";
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Container, Row, Col, Button, Dropdown } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { productActions } from '../action/productAction';
+import { ColorRing } from 'react-loader-spinner';
+import { cartActions } from '../action/cartAction';
+import { commonUiActions } from '../action/commonUiAction';
+import { currencyFormat } from '../utils/number';
+import '../style/productDetail.style.css';
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
-
-  const [size, setSize] = useState("");
+  const selectedProduct = useSelector((state) => state.product.selectedProduct);
+  // console.log('please....', selectedProduct);
+  const loading = useSelector((state) => state.product.loading);
+  const error = useSelector((state) => state.product.error);
+  const [size, setSize] = useState('');
   const { id } = useParams();
   const [sizeError, setSizeError] = useState(false);
 
@@ -29,48 +32,64 @@ const ProductDetail = () => {
 
   //카트에러가 있으면 에러메세지 보여주기
 
-  //에러가 있으면 에러메세지 보여주기
+  // useEffect(() => {
+  //   //상품 디테일 정보 가져오기
+  //   console.log('id', id);
+  //   dispatch(productActions.getProductDetail(id));
+  //   console.log('id', id);
+  // }, [id]);
 
   useEffect(() => {
-    //상품 디테일 정보 가져오기
-  }, [id]);
+    dispatch(productActions.getProductDetail(id));
+  }, [dispatch, id]);
+
+  if (loading) {
+    return <div>loading....</div>;
+  }
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+  if (!selectedProduct) {
+    return <div>Product not found</div>;
+  }
+
+  console.log('몽미', selectedProduct);
 
   return (
     <Container className="product-detail-card">
       <Row>
         <Col sm={6}>
-          <img
-            src="https://lp2.hm.com/hmgoepprod?set=quality%5B79%5D%2Csource%5B%2F3a%2F04%2F3a04ededbfa6a7b535e0ffa30474853fc95d2e81.jpg%5D%2Corigin%5Bdam%5D%2Ccategory%5B%5D%2Ctype%5BLOOKBOOK%5D%2Cres%5Bm%5D%2Chmver%5B1%5D&call=url[file:/product/fullscreen]"
-            className="w-100"
-            alt="image"
-          />
+          <img src={selectedProduct.image} className="w-100" alt="image" />
         </Col>
         <Col className="product-info-area" sm={6}>
-          <div className="product-info">리넨셔츠</div>
-          <div className="product-info">₩ 45,000</div>
-          <div className="product-info">샘플설명</div>
-
+          <div className="product-info">{selectedProduct.name}</div>
+          <div className="product-info">
+            ₩ {currencyFormat(selectedProduct.price)}
+          </div>
+          <div className="product-info">{selectedProduct.description}</div>
           <Dropdown
             className="drop-down size-drop-down"
             title={size}
             align="start"
             onSelect={(value) => selectSize(value)}
           >
-            <Dropdown.Toggle
-              className="size-drop-down"
-              variant={sizeError ? "outline-danger" : "outline-dark"}
-              id="dropdown-basic"
-              align="start"
-            >
-              {size === "" ? "사이즈 선택" : size.toUpperCase()}
-            </Dropdown.Toggle>
-
             <Dropdown.Menu className="size-drop-down">
-              <Dropdown.Item>M</Dropdown.Item>
+              {Object.keys(selectedProduct.stock).length > 0 &&
+                Object.keys(selectedProduct.stock).map((item) =>
+                  selectedProduct?.stock[item] > 0 ? (
+                    <Dropdown.Item eventKey={item}>
+                      {item.toUpperCase()}
+                    </Dropdown.Item>
+                  ) : (
+                    <Dropdown.Item eventKey={item} disabled={true}>
+                      {item.toUpperCase()}
+                    </Dropdown.Item>
+                  ),
+                )}
             </Dropdown.Menu>
           </Dropdown>
           <div className="warning-message">
-            {sizeError && "사이즈를 선택해주세요."}
+            {sizeError && '사이즈를 선택해주세요.'}
           </div>
           <Button variant="dark" className="add-button" onClick={addItemToCart}>
             추가

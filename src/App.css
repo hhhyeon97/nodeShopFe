@@ -280,6 +280,20 @@ body {
   color: #46433e;
 }
 
+.center-spinner {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.dropdown-toggle-custom::after {
+  float: right;
+  position: relative;
+  top: 7px;
+}
+
+/* 페이지네이션 */
+
 .pagination {
   display: flex;
   justify-content: center;

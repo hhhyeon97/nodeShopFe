@@ -28,6 +28,8 @@ const ProductDetail = () => {
   };
   const selectSize = (value) => {
     // 사이즈 추가하기
+    console.log('value', value);
+    setSize(value);
   };
 
   //카트에러가 있으면 에러메세지 보여주기
@@ -44,8 +46,21 @@ const ProductDetail = () => {
   }, [dispatch, id]);
 
   if (loading) {
-    return <div>loading....</div>;
+    return (
+      <div className="center-spinner">
+        <ColorRing
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+          colors={['#779fe0', '#6d7787', '#e1e6ed']}
+        />
+      </div>
+    );
   }
+
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -53,7 +68,8 @@ const ProductDetail = () => {
     return <div>Product not found</div>;
   }
 
-  console.log('몽미', selectedProduct);
+  // console.log('umm', selectedProduct);
+  // console.log('Selected Product Stock:', selectedProduct.stock);
 
   return (
     <Container className="product-detail-card">
@@ -71,21 +87,27 @@ const ProductDetail = () => {
             className="drop-down size-drop-down"
             title={size}
             align="start"
-            onSelect={(value) => selectSize(value)}
+            onSelect={selectSize}
           >
+            <Dropdown.Toggle
+              className="dropdown-toggle-custom"
+              style={{ border: '2px solid #333', width: '100%' }}
+              variant="white"
+              id="dropdown-basic"
+            >
+              {size || '사이즈 선택'}
+            </Dropdown.Toggle>
             <Dropdown.Menu className="size-drop-down">
               {Object.keys(selectedProduct.stock).length > 0 &&
-                Object.keys(selectedProduct.stock).map((item) =>
-                  selectedProduct?.stock[item] > 0 ? (
-                    <Dropdown.Item eventKey={item}>
-                      {item.toUpperCase()}
-                    </Dropdown.Item>
-                  ) : (
-                    <Dropdown.Item eventKey={item} disabled={true}>
-                      {item.toUpperCase()}
-                    </Dropdown.Item>
-                  ),
-                )}
+                Object.keys(selectedProduct.stock).map((item) => (
+                  <Dropdown.Item
+                    eventKey={item}
+                    key={item}
+                    disabled={selectedProduct.stock[item] <= 0}
+                  >
+                    {item.toUpperCase()}
+                  </Dropdown.Item>
+                ))}
             </Dropdown.Menu>
           </Dropdown>
           <div className="warning-message">

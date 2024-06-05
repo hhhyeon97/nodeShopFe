@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { productActions } from '../action/productAction';
 import { commonUiActions } from '../action/commonUiAction';
 import { TextAlignment } from '@cloudinary/url-gen/qualifiers';
+import { ColorRing } from 'react-loader-spinner';
 
 const ProductAll = () => {
   const dispatch = useDispatch();
@@ -19,8 +20,19 @@ const ProductAll = () => {
   }, [dispatch, searchTerm]);
 
   if (loading) {
-    // 로딩스피너 동글동글한 거 찾아서 교체하기
-    return <div className="loading-message">Loading...</div>;
+    return (
+      <div className="center-spinner">
+        <ColorRing
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+          colors={['#779fe0', '#6d7787', '#e1e6ed']}
+        />
+      </div>
+    );
   }
 
   if (error) {

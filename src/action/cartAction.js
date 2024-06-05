@@ -7,8 +7,12 @@ const addToCart =
     try {
       dispatch({ type: types.ADD_TO_CART_REQUEST });
       const response = await api.post('/cart', { productId: id, size, qty: 1 });
+      console.log('rrr', response);
       if (response.status !== 200) throw new Error(response.error);
-      dispatch({ type: types.ADD_TO_CART_SUCCESS, payload: response.data }); // todo
+      dispatch({
+        type: types.ADD_TO_CART_SUCCESS,
+        payload: response.data.cartItemQty,
+      }); // todo
       commonUiActions.showToastMessage(
         '카트에 상품이 추가됐습니다 !',
         'success',

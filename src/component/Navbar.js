@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../action/userAction';
 // todo : 토큰 삭제 시 여전히 네브바에는 로그아웃으로 남아 있음 ! 바로 반영되게 하려면 ?!
-// todo : ++ 토큰이 사라지면 뭔가 알림창으로든 토스트메세지로든 다시 세션 만료 됐다는 메세지 띄워주면 어때?
+// todo : ++ 토큰이 사라지거나 이상하게 바뀌면 뭔가 알림창으로든 토스트메세지로든 세션 만료 됐다는 메세지 띄워주면 어때?
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
   const { cartItemCount } = useSelector((state) => state.cart);
@@ -106,7 +106,7 @@ const Navbar = ({ user }) => {
               <FontAwesomeIcon icon={faShoppingBag} />
               {!isMobile && (
                 <span style={{ cursor: 'pointer' }}>{`쇼핑백(${
-                  cartItemCount || 0
+                  user ? cartItemCount : 0
                 })`}</span>
               )}
             </div>

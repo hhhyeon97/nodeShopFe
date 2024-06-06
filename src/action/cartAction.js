@@ -1,6 +1,7 @@
 import api from '../utils/api';
 import * as types from '../constants/cart.constants';
 import { commonUiActions } from '../action/commonUiAction';
+import { useNavigate } from 'react-router';
 const addToCart =
   ({ id, size }) =>
   async (dispatch) => {
@@ -21,7 +22,7 @@ const addToCart =
       );
       dispatch(cartActions.getCartQty()); // 수량 갱신
     } catch (error) {
-      dispatch({ type: types.ADD_TO_CART_FAIL, payload: error.error });
+      dispatch({ type: types.ADD_TO_CART_FAIL, payload: error.message });
       dispatch(commonUiActions.showToastMessage(error.error, 'error'));
     }
   };

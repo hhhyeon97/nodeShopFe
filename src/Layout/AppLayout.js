@@ -7,14 +7,20 @@ import ToastMessage from '../component/ToastMessage';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../action/userAction';
 import { commonUiActions } from '../action/commonUiAction';
+import { cartActions } from '../action/cartAction';
 
 const AppLayout = ({ children }) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
+
   useEffect(() => {
     dispatch(userActions.loginWithToken());
   }, []);
+
+  useEffect(() => {
+    dispatch(cartActions.getCartQty());
+  }, [user]);
 
   return (
     <div>

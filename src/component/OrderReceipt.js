@@ -12,15 +12,16 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
     <div className="receipt-container">
       <h3 className="receipt-title">주문 내역</h3>
       <ul className="receipt-list">
-        {cartList.map((item) => (
-          <li>
-            <div className="display-flex space-between">
-              <div>{item.productId.name}</div>
+        {cartList.length > 0 &&
+          cartList.map((item) => (
+            <li>
+              <div className="display-flex space-between">
+                <div>{item.productId.name}</div>
 
-              <div>{item.productId.price.toLocaleString('ko-KR') + '원'}</div>
-            </div>
-          </li>
-        ))}
+                <div>{item.productId.price.toLocaleString('ko-KR') + '원'}</div>
+              </div>
+            </li>
+          ))}
       </ul>
       <div className="display-flex space-between receipt-title">
         <div>
@@ -30,7 +31,7 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
           <strong>{totalPrice.toLocaleString('ko-KR') + '원'}</strong>
         </div>
       </div>
-      {location.pathname.includes('/cart') && (
+      {location.pathname.includes('/cart') && cartList.length > 0 && (
         <Button
           variant="dark"
           className="payment-button"

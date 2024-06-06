@@ -29,10 +29,10 @@ const ProductDetail = () => {
       return;
     }
     // 아직 로그인을 안한유저라면 로그인페이지로
-    if (!user) {
-      alert('로그인 후 이용 가능합니다 !');
-      navigate('/login');
-    }
+    // if (!user) {
+    //   alert('로그인 후 이용 가능합니다 !');
+    //   navigate('/login');
+    // }
     // 카트에 아이템 추가하기
     dispatch(cartActions.addToCart({ id, size }));
   };

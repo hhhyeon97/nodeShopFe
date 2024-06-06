@@ -25,7 +25,7 @@ function cartReducer(state = initialState, action) {
       return { ...state, loading: true };
     case types.ADD_TO_CART_SUCCESS:
     case types.DELETE_CART_ITEM_SUCCESS:
-      return { ...state, cartItemQty: payload }; // todo
+      return { ...state, cartItemQty: payload };
     case types.GET_CART_LIST_SUCCESS:
       return {
         ...state,

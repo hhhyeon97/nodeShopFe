@@ -40,7 +40,7 @@ const createProduct = (formData) => async (dispatch) => {
     if (response.status !== 200) throw new Error(response.error);
     dispatch({ type: types.PRODUCT_CREATE_SUCCESS });
     dispatch(commonUiActions.showToastMessage('상품 생성 완료', 'success'));
-    dispatch(getProductList({ page: 1, name: '' }));
+    dispatch(getProductList({ page: 1, name: '' })); // todo : 생성, 수정, 삭제 성공시 1페이지로 이동하고 있지만 ui에서 페이지네이션이랑 url에는 여전히 이전 페이지로 남아 있음 !
   } catch (error) {
     dispatch({ type: types.PRODUCT_CREATE_FAIL, payload: error.error });
     dispatch(commonUiActions.showToastMessage(error.error, 'error'));

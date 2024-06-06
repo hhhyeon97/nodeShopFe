@@ -22,7 +22,7 @@ const addToCart =
       dispatch(cartActions.getCartQty()); // 수량 갱신
     } catch (error) {
       dispatch({ type: types.ADD_TO_CART_FAIL, payload: error.error });
-      // dispatch(commonUiActions.showToastMessage(error.error, 'error'));
+      dispatch(commonUiActions.showToastMessage(error.error, 'error'));
     }
   };
 

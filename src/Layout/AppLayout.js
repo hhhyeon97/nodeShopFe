@@ -20,7 +20,7 @@ const AppLayout = ({ children }) => {
 
   useEffect(() => {
     dispatch(cartActions.getCartQty());
-  }, [user]);
+  }, [user, dispatch]);
 
   return (
     <div>

@@ -16,9 +16,14 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
           cartList.map((item) => (
             <li>
               <div className="display-flex space-between">
-                <div>{item.productId.name}</div>
+                <div>
+                  {item.productId.name} ({item.size})
+                </div>
 
-                <div>{item.productId.price.toLocaleString('ko-KR') + '원'}</div>
+                <div>
+                  {(item.productId.price * item.qty).toLocaleString('ko-KR') +
+                    '원'}
+                </div>
               </div>
             </li>
           ))}

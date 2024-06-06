@@ -91,7 +91,7 @@ const ProductDetail = () => {
         <Col className="product-info-area" sm={6}>
           <div className="product-info">{selectedProduct.name}</div>
           <div className="product-info">
-            ₩ {currencyFormat(selectedProduct.price)}
+            {selectedProduct.price.toLocaleString() + '원'}
           </div>
           <div className="product-info">{selectedProduct.description}</div>
           <Dropdown

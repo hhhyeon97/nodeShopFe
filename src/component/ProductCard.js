@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
       <img src={product?.image} alt={product?.name} width={220} height={330} />
       <div className="product-name">{product?.name}</div>
       <div className="product-price">
-        {currencyFormat(product?.price) + '원'}
+        {product?.price.toLocaleString('ko-KR') + '원'}
       </div>
     </div>
   );

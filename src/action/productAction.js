@@ -2,7 +2,6 @@ import api from '../utils/api';
 import * as types from '../constants/product.constants';
 import { toast } from 'react-toastify';
 import { commonUiActions } from './commonUiAction';
-import { useNavigate } from 'react-router-dom';
 
 const getProductList = (query) => async (dispatch) => {
   try {
@@ -34,19 +33,24 @@ const getProductDetail = (id) => async (dispatch) => {
   }
 };
 
+const getSearchParams = () => {
+  const searchParams = new URLSearchParams(window.location.search);
+  return searchParams;
+};
+
 const createProduct =
-  (formData, navigate, setSearchQuery) => async (dispatch) => {
+  (formData, navigate, setSearchQuery) => async (dispatch, getState) => {
     try {
       dispatch({ type: types.PRODUCT_CREATE_REQUEST });
       const response = await api.post('/product', formData);
       if (response.status !== 200) throw new Error(response.error);
       dispatch({ type: types.PRODUCT_CREATE_SUCCESS });
       dispatch(commonUiActions.showToastMessage('상품 생성 완료', 'success'));
-      dispatch(getProductList({ page: 1, name: '' })); // todo : 생성, 수정, 삭제 성공시 1페이지로 이동하고 있지만 ui에서 페이지네이션이랑 url에는 여전히 이전 페이지로 남아 있음 !
-      // 페이지네이션 업데이트
-      setSearchQuery({ page: 1, name: '' });
-      // URL 업데이트
-      navigate('?page=1');
+      const { totalPageNum } = response.data;
+      dispatch(getProductList({ page: totalPageNum, name: '' }));
+      // console.log('total page', totalPageNum);
+      // setSearchQuery({ page: totalPageNum, name: '' }); //todo 왜....url이랑페이지네이션 안 바뀔까 ?!...그리고 주석 풀면 토스트가 안 나오는 이유가 뭘까
+      // navigate(`?page=${totalPageNum}`);
     } catch (error) {
       dispatch({ type: types.PRODUCT_CREATE_FAIL, payload: error.error });
       dispatch(commonUiActions.showToastMessage(error.error, 'error'));

@@ -18,7 +18,13 @@ const InitialFormData = {
   status: 'active',
   price: 0,
 };
-const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
+const NewItemDialog = ({
+  mode,
+  showDialog,
+  setShowDialog,
+  navigate,
+  setSearchQuery,
+}) => {
   const { selectedProduct } = useSelector((state) => state.product);
   const { error } = useSelector((state) => state.product);
   const [formData, setFormData] = useState(
@@ -54,7 +60,12 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     if (mode === 'new') {
       //새 상품 만들기
       dispatch(
-        productActions.createProduct({ ...formData, stock: totalStock }),
+        productActions.createProduct({
+          ...formData,
+          stock: totalStock,
+          navigate,
+          setSearchQuery,
+        }),
       );
       setShowDialog(false);
     } else {
@@ -63,6 +74,8 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
         productActions.editProduct(
           { ...formData, stock: totalStock },
           selectedProduct._id,
+          navigate,
+          setSearchQuery,
         ),
       );
       setShowDialog(false);

@@ -2,6 +2,7 @@ import api from '../utils/api';
 import * as types from '../constants/product.constants';
 import { toast } from 'react-toastify';
 import { commonUiActions } from './commonUiAction';
+import { useNavigate } from 'react-router-dom';
 
 const getProductList = (query) => async (dispatch) => {
   try {
@@ -33,20 +34,25 @@ const getProductDetail = (id) => async (dispatch) => {
   }
 };
 
-const createProduct = (formData) => async (dispatch) => {
-  try {
-    dispatch({ type: types.PRODUCT_CREATE_REQUEST });
-    const response = await api.post('/product', formData);
-    if (response.status !== 200) throw new Error(response.error);
-    dispatch({ type: types.PRODUCT_CREATE_SUCCESS });
-    dispatch(commonUiActions.showToastMessage('상품 생성 완료', 'success'));
-    dispatch(getProductList({ page: 1, name: '' })); // todo : 생성, 수정, 삭제 성공시 1페이지로 이동하고 있지만 ui에서 페이지네이션이랑 url에는 여전히 이전 페이지로 남아 있음 !
-  } catch (error) {
-    dispatch({ type: types.PRODUCT_CREATE_FAIL, payload: error.error });
-    dispatch(commonUiActions.showToastMessage(error.error, 'error'));
-  }
-};
-const deleteProduct = (id) => async (dispatch) => {
+const createProduct =
+  (formData, navigate, setSearchQuery) => async (dispatch) => {
+    try {
+      dispatch({ type: types.PRODUCT_CREATE_REQUEST });
+      const response = await api.post('/product', formData);
+      if (response.status !== 200) throw new Error(response.error);
+      dispatch({ type: types.PRODUCT_CREATE_SUCCESS });
+      dispatch(commonUiActions.showToastMessage('상품 생성 완료', 'success'));
+      dispatch(getProductList({ page: 1, name: '' })); // todo : 생성, 수정, 삭제 성공시 1페이지로 이동하고 있지만 ui에서 페이지네이션이랑 url에는 여전히 이전 페이지로 남아 있음 !
+      // 페이지네이션 업데이트
+      setSearchQuery({ page: 1, name: '' });
+      // URL 업데이트
+      navigate('?page=1');
+    } catch (error) {
+      dispatch({ type: types.PRODUCT_CREATE_FAIL, payload: error.error });
+      dispatch(commonUiActions.showToastMessage(error.error, 'error'));
+    }
+  };
+const deleteProduct = (id, navigate, setSearchQuery) => async (dispatch) => {
   try {
     dispatch({ type: types.PRODUCT_DELETE_REQUEST });
     const response = await api.delete(`/product/${id}`);
@@ -56,27 +62,35 @@ const deleteProduct = (id) => async (dispatch) => {
     });
     dispatch(commonUiActions.showToastMessage('상품 삭제 완료', 'success'));
     dispatch(getProductList({ page: 1 }));
+    setSearchQuery({ page: 1, name: '' });
+    navigate('?page=1');
   } catch (error) {
     dispatch({ type: types.PRODUCT_DELETE_FAIL, payload: error.error });
     dispatch(commonUiActions.showToastMessage(error.error, 'error'));
   }
 };
 
-const editProduct = (formData, id) => async (dispatch) => {
-  try {
-    dispatch({ type: types.PRODUCT_EDIT_REQUEST });
-    const response = await api.put(`/product/${id}`, formData);
-    // console.log('API response:', response);
-    if (response.status !== 200) throw new Error(response.error);
-    dispatch({ type: types.PRODUCT_EDIT_SUCCESS, payload: response.data.data });
-    // console.log('Product edit success:', response.data.data);
-    dispatch(commonUiActions.showToastMessage('상품 수정 완료', 'success'));
-    dispatch(getProductList({ page: 1, name: '' }));
-  } catch (error) {
-    dispatch({ type: types.PRODUCT_EDIT_FAIL, payload: error.error });
-    dispatch(commonUiActions.showToastMessage(error.error, 'error'));
-  }
-};
+const editProduct =
+  (formData, id, navigate, setSearchQuery) => async (dispatch) => {
+    try {
+      dispatch({ type: types.PRODUCT_EDIT_REQUEST });
+      const response = await api.put(`/product/${id}`, formData);
+      // console.log('API response:', response);
+      if (response.status !== 200) throw new Error(response.error);
+      dispatch({
+        type: types.PRODUCT_EDIT_SUCCESS,
+        payload: response.data.data,
+      });
+      // console.log('Product edit success:', response.data.data);
+      dispatch(commonUiActions.showToastMessage('상품 수정 완료', 'success'));
+      dispatch(getProductList({ page: 1, name: '' }));
+      setSearchQuery({ page: 1, name: '' });
+      navigate('?page=1');
+    } catch (error) {
+      dispatch({ type: types.PRODUCT_EDIT_FAIL, payload: error.error });
+      dispatch(commonUiActions.showToastMessage(error.error, 'error'));
+    }
+  };
 
 export const productActions = {
   getProductList,

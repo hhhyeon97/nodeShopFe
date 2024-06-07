@@ -52,7 +52,7 @@ const AdminProduct = () => {
 
   const deleteItem = (id) => {
     //아이템 삭제하기
-    dispatch(productActions.deleteProduct(id));
+    dispatch(productActions.deleteProduct(id, navigate, setSearchQuery));
   };
 
   const openEditForm = (product) => {
@@ -127,6 +127,8 @@ const AdminProduct = () => {
         mode={mode}
         showDialog={showDialog}
         setShowDialog={setShowDialog}
+        navigate={navigate}
+        setSearchQuery={setSearchQuery}
       />
     </div>
   );

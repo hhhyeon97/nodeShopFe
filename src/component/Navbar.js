@@ -18,6 +18,7 @@ const Navbar = ({ user }) => {
   const { cartItemCount } = useSelector((state) => state.cart);
   const isMobile = window.navigator.userAgent.indexOf('Mobile') !== -1;
   const [showSearchBox, setShowSearchBox] = useState(false);
+  const [searchKeyword, setSearchKeyword] = useState('');
   const menuList = [
     '여성',
     'Divided',
@@ -30,6 +31,7 @@ const Navbar = ({ user }) => {
   ];
   let [width, setWidth] = useState(0);
   let navigate = useNavigate();
+  let location = useLocation();
 
   const onCheckEnter = (event) => {
     if (event.key === 'Enter') {
@@ -40,6 +42,12 @@ const Navbar = ({ user }) => {
       navigate(`?name=${keyword}`);
     }
   };
+
+  useEffect(() => {
+    if (location.pathname === '/') {
+      setSearchKeyword(''); // 홈으로 이동할 때 검색 키워드 초기화
+    }
+  }, [location.pathname]);
 
   const logout = () => {
     dispatch(userActions.logout());
@@ -146,6 +154,8 @@ const Navbar = ({ user }) => {
             <input
               type="text"
               placeholder="제품검색"
+              value={searchKeyword} // 상태 변수와 동기화
+              onChange={(e) => setSearchKeyword(e.target.value)} // 입력 값 상태 업데이트
               onKeyPress={onCheckEnter}
             />
           </div>

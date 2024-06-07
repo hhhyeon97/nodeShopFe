@@ -1,5 +1,6 @@
 import api from '../utils/api';
 import * as types from '../constants/user.constants';
+import { CART_RESET } from '../constants/cart.constants';
 import { commonUiActions } from './commonUiAction';
 import * as commonTypes from '../constants/commonUI.constants';
 const loginWithToken = () => async (dispatch) => {
@@ -35,6 +36,8 @@ const logout = () => async (dispatch) => {
   dispatch({ type: types.LOGOUT });
   // 세션 토큰 값도 지우자
   sessionStorage.removeItem('token');
+  // 로그아웃 하면 카트도 reset 처리
+  dispatch({ type: CART_RESET });
 };
 
 const loginWithGoogle = (token) => async (dispatch) => {};

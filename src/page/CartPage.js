@@ -10,11 +10,18 @@ import '../style/cart.style.css';
 const CartPage = () => {
   const dispatch = useDispatch();
   const { cartList, totalPrice } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.user);
+  // useEffect(() => {
+  //   //카트리스트 불러오기
+  //   dispatch(cartActions.getCartList());
+  // }, []);
 
   useEffect(() => {
     //카트리스트 불러오기
-    dispatch(cartActions.getCartList());
-  }, []);
+    if (user) {
+      dispatch(cartActions.getCartList());
+    }
+  }, [dispatch, user]);
 
   return (
     <Container>

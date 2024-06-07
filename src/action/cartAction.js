@@ -102,10 +102,15 @@ const getCartQty = () => async (dispatch) => {
   }
 };
 
+export const resetCart = () => ({
+  type: types.CART_RESET,
+});
+
 export const cartActions = {
   addToCart,
   getCartList,
   deleteCartItem,
   updateQty,
   getCartQty,
+  resetCart,
 };

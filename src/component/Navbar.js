@@ -43,6 +43,7 @@ const Navbar = ({ user }) => {
 
   const logout = () => {
     dispatch(userActions.logout());
+    dispatch({ type: 'CART_RESET' });
   };
   return (
     <div>

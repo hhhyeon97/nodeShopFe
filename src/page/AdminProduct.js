@@ -9,7 +9,7 @@ import ReactPaginate from 'react-paginate';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { commonUiActions } from '../action/commonUiAction';
 import ProductTable from '../component/ProductTable';
-
+import api from '../utils/api';
 const AdminProduct = () => {
   const navigate = useNavigate();
   const { productList, totalPageNum } = useSelector((state) => state.product);
@@ -19,7 +19,7 @@ const AdminProduct = () => {
   const [searchQuery, setSearchQuery] = useState({
     page: query.get('page') || 1,
     name: query.get('name') || '',
-  }); //검색 조건들을 저장하는 객체
+  });
 
   const [mode, setMode] = useState('new');
   const tableHeader = [
@@ -33,27 +33,18 @@ const AdminProduct = () => {
     '',
   ];
 
-  //상품리스트 가져오기 (url쿼리 맞춰서)
+  // useEffect(() => {
+  //   // 페이지 로딩 시 기본 페이지 설정
+  //   const page = query.get('page') || 1; // URL에서 페이지 번호 읽기
+  //   setSearchQuery({ ...searchQuery, page }); // 검색 쿼리 업데이트
+  //   dispatch(productActions.getProductList({ ...searchQuery, page })); // 상품 목록 가져오기
+  // }, []);
+
   useEffect(() => {
     dispatch(productActions.getProductList({ ...searchQuery }));
-  }, [query]);
-
-  // useEffect(() => {
-  //   //검색어나 페이지가 바뀌면 url바꿔주기 (검색어또는 페이지가 바뀜 =>
-  //   //url 바꿔줌=> url쿼리 읽어옴=> 이 쿼리값 맞춰서  상품리스트 가져오기)
-  //   if (searchQuery.name === '') {
-  //     delete searchQuery.name;
-  //   }
-  //   // console.log('q', searchQuery);
-  //   const params = new URLSearchParams(searchQuery);
-  //   const query = params.toString();
-  //   // console.log('qqq', query);
-  //   navigate('?' + query);
-  //   dispatch(productActions.getProductList({ ...searchQuery }));
-  // }, [searchQuery, navigate, dispatch]);
+  }, [query, dispatch]);
 
   useEffect(() => {
-    // URL 변경에 따른 검색 쿼리 업데이트
     if (searchQuery.name === '') {
       delete searchQuery.name;
     }
@@ -63,41 +54,26 @@ const AdminProduct = () => {
   }, [searchQuery]);
 
   const deleteItem = (id) => {
-    //아이템 삭제하기
     dispatch(productActions.deleteProduct(id, navigate, setSearchQuery));
   };
 
   const openEditForm = (product) => {
-    //edit모드로 설정하고
     setMode('edit');
-    // 아이템 수정다이얼로그 열어주기
     dispatch({ type: types.SET_SELECTED_PRODUCT, payload: product });
     setShowDialog(true);
   };
 
   const handleClickNewItem = () => {
-    //new 모드로 설정하고
     setMode('new');
-    // 다이얼로그 열어주기
     setShowDialog(true);
   };
 
-  // const handlePageClick = ({ selected }) => {
-  //   //  쿼리에 페이지값 바꿔주기
-  //   // console.log('selected', selected);
-  //   setSearchQuery({ ...searchQuery, page: selected + 1 });
-  // };
-
   const handlePageClick = ({ selected }) => {
-    // 페이지를 변경하면 해당 페이지로 이동
-    const nextPage = selected + 1; // 페이지네이션 컴포넌트는 0부터 시작하므로 1을 더해줍니다.
-    setSearchQuery({ ...searchQuery, page: nextPage });
-    navigate(`?page=${nextPage}`);
+    const nextPage = selected + 1; // 변경된 페이지 번호 계산
+    setSearchQuery({ ...searchQuery, page: nextPage }); // 검색 쿼리 업데이트
+    dispatch(productActions.getProductList({ ...searchQuery, page: nextPage })); // 상품 목록 가져오기
   };
 
-  // searchbox 에서 검색어를 읽어온다 - > 엔터를 치면 - > searchQuery객체가 업데이트 된다.
-  // - > searchQuery 객체 안에 아이템을 기준으로 url을 새로 생성해서 호출 - >
-  // url 쿼리 읽어오기 - > url 쿼리 기준으로 백엔드 검색조건과 함께 호출
   return (
     <div className="locate-center">
       <Container>
@@ -147,7 +123,7 @@ const AdminProduct = () => {
         showDialog={showDialog}
         setShowDialog={setShowDialog}
         navigate={navigate}
-        setSearchQuery={setSearchQuery}
+        searchQuery={searchQuery}
       />
     </div>
   );

@@ -25,7 +25,9 @@ const NewItemDialog = ({
   navigate,
   setSearchQuery,
 }) => {
-  const { selectedProduct } = useSelector((state) => state.product);
+  const { selectedProduct, totalPageNum } = useSelector(
+    (state) => state.product,
+  );
   const { error } = useSelector((state) => state.product);
   const [formData, setFormData] = useState(
     mode === 'new' ? { ...InitialFormData } : selectedProduct,

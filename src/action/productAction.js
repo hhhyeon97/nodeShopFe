@@ -33,13 +33,8 @@ const getProductDetail = (id) => async (dispatch) => {
   }
 };
 
-const getSearchParams = () => {
-  const searchParams = new URLSearchParams(window.location.search);
-  return searchParams;
-};
-
 const createProduct =
-  (formData, navigate, setSearchQuery) => async (dispatch, getState) => {
+  (formData, navigate, setSearchQuery) => async (dispatch) => {
     try {
       dispatch({ type: types.PRODUCT_CREATE_REQUEST });
       const response = await api.post('/product', formData);
@@ -47,15 +42,13 @@ const createProduct =
       dispatch({ type: types.PRODUCT_CREATE_SUCCESS });
       dispatch(commonUiActions.showToastMessage('상품 생성 완료', 'success'));
       const { totalPageNum } = response.data;
-      dispatch(
-        getProductList({
-          page: totalPageNum,
-          name: '',
-        }),
-      );
-      // console.log('total page', totalPageNum);
+      // console('test==============1');
+      dispatch(getProductList({ page: totalPageNum, name: '' }));
+      // console('test==============2');
       // navigate(`?page=${totalPageNum}`);
-      // setSearchQuery({ page: totalPageNum });
+      // console('test==============3');
+      // setSearchQuery({ page: totalPageNum, name: '' });
+      // console('test==============4');
     } catch (error) {
       dispatch({ type: types.PRODUCT_CREATE_FAIL, payload: error.error });
       dispatch(commonUiActions.showToastMessage(error.error, 'error'));

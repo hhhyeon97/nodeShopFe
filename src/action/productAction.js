@@ -47,15 +47,21 @@ const createProduct =
       dispatch({ type: types.PRODUCT_CREATE_SUCCESS });
       dispatch(commonUiActions.showToastMessage('상품 생성 완료', 'success'));
       const { totalPageNum } = response.data;
-      dispatch(getProductList({ page: totalPageNum, name: '' }));
+      dispatch(
+        getProductList({
+          page: totalPageNum,
+          name: '',
+        }),
+      );
       // console.log('total page', totalPageNum);
-      // setSearchQuery({ page: totalPageNum, name: '' }); //todo 왜....url이랑페이지네이션 안 바뀔까 ?!...그리고 주석 풀면 토스트가 안 나오는 이유가 뭘까
       // navigate(`?page=${totalPageNum}`);
+      // setSearchQuery({ page: totalPageNum });
     } catch (error) {
       dispatch({ type: types.PRODUCT_CREATE_FAIL, payload: error.error });
       dispatch(commonUiActions.showToastMessage(error.error, 'error'));
     }
   };
+
 const deleteProduct = (id, navigate, setSearchQuery) => async (dispatch) => {
   try {
     dispatch({ type: types.PRODUCT_DELETE_REQUEST });

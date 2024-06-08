@@ -38,16 +38,28 @@ const AdminProduct = () => {
     dispatch(productActions.getProductList({ ...searchQuery }));
   }, [query]);
 
+  // useEffect(() => {
+  //   //검색어나 페이지가 바뀌면 url바꿔주기 (검색어또는 페이지가 바뀜 =>
+  //   //url 바꿔줌=> url쿼리 읽어옴=> 이 쿼리값 맞춰서  상품리스트 가져오기)
+  //   if (searchQuery.name === '') {
+  //     delete searchQuery.name;
+  //   }
+  //   // console.log('q', searchQuery);
+  //   const params = new URLSearchParams(searchQuery);
+  //   const query = params.toString();
+  //   // console.log('qqq', query);
+  //   navigate('?' + query);
+  //   dispatch(productActions.getProductList({ ...searchQuery }));
+  // }, [searchQuery, navigate, dispatch]);
+
   useEffect(() => {
-    //검색어나 페이지가 바뀌면 url바꿔주기 (검색어또는 페이지가 바뀜 => url 바꿔줌=> url쿼리 읽어옴=> 이 쿼리값 맞춰서  상품리스트 가져오기)
+    // URL 변경에 따른 검색 쿼리 업데이트
     if (searchQuery.name === '') {
       delete searchQuery.name;
     }
-    // console.log('q', searchQuery);
     const params = new URLSearchParams(searchQuery);
-    const query = params.toString();
-    // console.log('qqq', query);
-    navigate('?' + query);
+    const queryString = params.toString();
+    navigate(`?${queryString}`);
   }, [searchQuery]);
 
   const deleteItem = (id) => {
@@ -70,10 +82,17 @@ const AdminProduct = () => {
     setShowDialog(true);
   };
 
+  // const handlePageClick = ({ selected }) => {
+  //   //  쿼리에 페이지값 바꿔주기
+  //   // console.log('selected', selected);
+  //   setSearchQuery({ ...searchQuery, page: selected + 1 });
+  // };
+
   const handlePageClick = ({ selected }) => {
-    //  쿼리에 페이지값 바꿔주기
-    // console.log('selected', selected);
-    setSearchQuery({ ...searchQuery, page: selected + 1 });
+    // 페이지를 변경하면 해당 페이지로 이동
+    const nextPage = selected + 1; // 페이지네이션 컴포넌트는 0부터 시작하므로 1을 더해줍니다.
+    setSearchQuery({ ...searchQuery, page: nextPage });
+    navigate(`?page=${nextPage}`);
   };
 
   // searchbox 에서 검색어를 읽어온다 - > 엔터를 치면 - > searchQuery객체가 업데이트 된다.
@@ -105,7 +124,7 @@ const AdminProduct = () => {
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
           pageCount={totalPageNum}
-          forcePage={parseInt(searchQuery.page) - 1}
+          forcePage={searchQuery.page - 1}
           previousLabel="<"
           renderOnZeroPageCount={null}
           pageClassName="page-item"

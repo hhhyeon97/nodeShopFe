@@ -49,6 +49,8 @@ const createProduct =
       // console('test==============3');
       // setSearchQuery({ page: totalPageNum, name: '' });
       // console('test==============4');
+      setSearchQuery({ page: totalPageNum, name: '' });
+      navigate(`?page=${totalPageNum}`);
     } catch (error) {
       dispatch({ type: types.PRODUCT_CREATE_FAIL, payload: error.error });
       dispatch(commonUiActions.showToastMessage(error.error, 'error'));

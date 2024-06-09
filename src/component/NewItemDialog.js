@@ -62,12 +62,14 @@ const NewItemDialog = ({
     if (mode === 'new') {
       //새 상품 만들기
       dispatch(
-        productActions.createProduct({
-          ...formData,
-          stock: totalStock,
+        productActions.createProduct(
+          {
+            ...formData,
+            stock: totalStock,
+          },
           navigate,
           setSearchQuery,
-        }),
+        ),
       );
       setShowDialog(false);
     } else {

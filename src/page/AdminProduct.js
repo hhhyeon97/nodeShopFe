@@ -44,6 +44,15 @@ const AdminProduct = () => {
     dispatch(productActions.getProductList({ ...searchQuery }));
   }, [query, dispatch]);
 
+  // useEffect(() => {
+  //   if (searchQuery.name === '') {
+  //     delete searchQuery.name;
+  //   }
+  //   const params = new URLSearchParams(searchQuery);
+  //   const queryString = params.toString();
+  //   navigate(`?${queryString}`);
+  // }, [searchQuery]);
+
   useEffect(() => {
     if (searchQuery.name === '') {
       delete searchQuery.name;
@@ -51,7 +60,13 @@ const AdminProduct = () => {
     const params = new URLSearchParams(searchQuery);
     const queryString = params.toString();
     navigate(`?${queryString}`);
-  }, [searchQuery]);
+  }, [searchQuery, navigate]);
+
+  // useEffect(() => {
+  //   const params = new URLSearchParams(searchQuery);
+  //   const queryString = params.toString();
+  //   navigate(`?${queryString}`);
+  // }, [searchQuery, navigate]);
 
   const deleteItem = (id) => {
     dispatch(productActions.deleteProduct(id, navigate, setSearchQuery));
@@ -123,7 +138,8 @@ const AdminProduct = () => {
         showDialog={showDialog}
         setShowDialog={setShowDialog}
         navigate={navigate}
-        searchQuery={searchQuery}
+        // searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
       />
     </div>
   );

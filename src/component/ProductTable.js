@@ -3,6 +3,12 @@ import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import { currencyFormat } from '../utils/number';
 const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
+  const handleDelete = (id) => {
+    if (window.confirm('정말로 이 상품을 삭제하시겠습니까?')) {
+      deleteItem(id);
+    }
+  };
+
   return (
     <div className="overflow-x">
       <Table striped bordered hover>
@@ -36,7 +42,8 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
                   <Button
                     size="sm"
                     variant="danger"
-                    onClick={() => deleteItem(item._id)}
+                    // onClick={() => deleteItem(item._id)}
+                    onClick={() => handleDelete(item._id)}
                     className="mr-1"
                   >
                     -

@@ -101,20 +101,18 @@ const Navbar = ({ user }) => {
             {user ? (
               <div onClick={logout} className="nav-icon">
                 <FontAwesomeIcon icon={faUser} />
-                {!isMobile && (
-                  <span style={{ cursor: 'pointer' }}>로그아웃</span>
-                )}
+                {!isMobile && <span style={{ cursor: 'pointer' }}>LOGOUT</span>}
               </div>
             ) : (
               <div onClick={() => navigate('/login')} className="nav-icon">
                 <FontAwesomeIcon icon={faUser} />
-                {!isMobile && <span style={{ cursor: 'pointer' }}>로그인</span>}
+                {!isMobile && <span style={{ cursor: 'pointer' }}>LOGIN</span>}
               </div>
             )}
             <div onClick={() => navigate('/cart')} className="nav-icon">
               <FontAwesomeIcon icon={faShoppingBag} />
               {!isMobile && (
-                <span style={{ cursor: 'pointer' }}>{`쇼핑백(${
+                <span style={{ cursor: 'pointer' }}>{`CART(${
                   user ? cartItemCount : 0
                 })`}</span>
               )}
@@ -124,7 +122,7 @@ const Navbar = ({ user }) => {
               className="nav-icon"
             >
               <FontAwesomeIcon icon={faBox} />
-              {!isMobile && <span style={{ cursor: 'pointer' }}>내 주문</span>}
+              {!isMobile && <span style={{ cursor: 'pointer' }}>ORDER</span>}
             </div>
             {isMobile && (
               <div className="nav-icon" onClick={() => setShowSearchBox(true)}>

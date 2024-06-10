@@ -1,35 +1,36 @@
-import React, { useState } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import OrderReceipt from "../component/OrderReceipt";
-import PaymentForm from "../component/PaymentForm";
-import "../style/paymentPage.style.css";
-import { useSelector, useDispatch } from "react-redux";
-import { orderActions } from "../action/orderAction";
-import { useEffect } from "react";
-import { useNavigate } from "react-router";
-import { commonUiActions } from "../action/commonUiAction";
-import { cc_expires_format } from "../utils/number";
+import React, { useState } from 'react';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import OrderReceipt from '../component/OrderReceipt';
+import PaymentForm from '../component/PaymentForm';
+import '../style/paymentPage.style.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { orderActions } from '../action/orderAction';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import { commonUiActions } from '../action/commonUiAction';
+import { cc_expires_format } from '../utils/number';
 
 const PaymentPage = () => {
   const dispatch = useDispatch();
 
   const [cardValue, setCardValue] = useState({
-    cvc: "",
-    expiry: "",
-    focus: "",
-    name: "",
-    number: "",
+    cvc: '',
+    expiry: '',
+    focus: '',
+    name: '',
+    number: '',
   });
   const navigate = useNavigate();
   const [firstLoading, setFirstLoading] = useState(true);
   const [shipInfo, setShipInfo] = useState({
-    firstName: "",
-    lastName: "",
-    contact: "",
-    address: "",
-    city: "",
-    zip: "",
+    firstName: '',
+    lastName: '',
+    contact: '',
+    address: '',
+    city: '',
+    zip: '',
   });
+  // console.log('shipinfo', shipInfo);
 
   //맨처음 페이지 로딩할때는 넘어가고  오더번호를 받으면 성공페이지로 넘어가기
 
@@ -40,6 +41,8 @@ const PaymentPage = () => {
 
   const handleFormChange = (event) => {
     //shipInfo에 값 넣어주기
+    const { name, value } = event.target;
+    setShipInfo({ ...shipInfo, [name]: value });
   };
 
   const handlePaymentInfoChange = (event) => {
@@ -124,6 +127,11 @@ const PaymentPage = () => {
                 </div>
                 <div>
                   <h2 className="payment-title">결제 정보</h2>
+                  <PaymentForm
+                    cardValue={cardValue}
+                    handleInputFocus={handleInputFocus}
+                    handlePaymentInfoChange={handlePaymentInfoChange}
+                  />
                 </div>
 
                 <Button

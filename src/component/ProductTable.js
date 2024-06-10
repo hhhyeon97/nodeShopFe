@@ -3,8 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import { currencyFormat } from '../utils/number';
 const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
-  const handleDelete = (id) => {
-    if (window.confirm('정말로 이 상품을 삭제하시겠습니까?')) {
+  const handleDelete = (id, name) => {
+    if (window.confirm(`정말로 "${name}" 상품을 삭제하시겠습니까?`)) {
       deleteItem(id);
     }
   };
@@ -43,7 +43,7 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
                     size="sm"
                     variant="danger"
                     // onClick={() => deleteItem(item._id)}
-                    onClick={() => handleDelete(item._id)}
+                    onClick={() => handleDelete(item._id, item.name)}
                     className="mr-1"
                   >
                     -

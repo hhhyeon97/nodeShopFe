@@ -23,7 +23,8 @@ const createOrder = (payload, navigate) => async (dispatch) => {
 const getOrder = () => async (dispatch) => {
   try {
     dispatch({ type: types.GET_ORDER_REQUEST });
-    const response = await api.get('/order'); // 이 부분은 프론트엔드에서 현재 유저의 ID를 전송해야 합니다.
+    const response = await api.get('/order');
+    if (response.status !== 200) throw new Error(response.error);
     dispatch({
       type: types.GET_ORDER_SUCCESS,
       payload: response.data,

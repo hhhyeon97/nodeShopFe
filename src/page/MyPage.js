@@ -20,12 +20,12 @@ const MyPage = () => {
     dispatch(orderActions.getOrder());
   }, [dispatch]);
 
-  console.log('주문정보', orderList);
+  // console.log('주문정보', orderList);
 
   // 오더리스트가 없다면? 주문한 상품이 없습니다 메세지 보여주기
   if (!orderList.length) {
     return (
-      <Container className="status-card-container">
+      <Container className="status-card-container locate-center mt-5">
         주문한 상품이 없습니다.
       </Container>
     );

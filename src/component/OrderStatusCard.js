@@ -16,7 +16,12 @@ const OrderStatusCard = ({ order }) => {
     <div>
       <Row className="status-card">
         <Col xs={2}>
-          <img src={order.items[0].productId.image} alt="" height={96} />
+          <img
+            src={order.items[0].productId.image}
+            alt=""
+            height={96}
+            width={90}
+          />
         </Col>
         <Col xs={8} className="order-info">
           <div>
@@ -27,26 +32,21 @@ const OrderStatusCard = ({ order }) => {
             {' '}
             주문일자 : {formatDate(order.createdAt)}
           </div>
-          <div>
-            {' '}
-            주문 상품 :&nbsp;
-            {order.items.map((item, index) => (
-              <span key={item.productId._id}>
-                {/* {item.productId.name} 포함 ({item.qty}개) */}
-                {/* {item.productId.name}외 {item.qty - 1}개 */}
-                {item.qty === 1 ? (
-                  item.productId.name
-                ) : (
-                  <>
-                    {item.productId.name} 외 {item.qty - 1}개
-                  </>
-                )}
-                {index < order.items.length - 1 && ', '}
+          <div className="text-12">
+            주문 상품:&nbsp;
+            {order.items.length > 0 ? (
+              <span>
+                {order.items[0].productId.name}
+                {order.items.length > 1 && ` 외 ${order.items.length - 1}개`}
               </span>
-            ))}
+            ) : (
+              <span>상품이 없습니다</span>
+            )}
           </div>
           {/* <div>{order.items.map((item) => item.productId.name).join(', ')}</div> */}
-          <div>총 가격 : {currencyFormat(order.totalPrice)}</div>
+          <div className="total-price">
+            총 결제금액 : {order.totalPrice.toLocaleString('ko-KR') + '원'}
+          </div>
         </Col>
         <Col md={2} className="vertical-middle">
           <div className="text-align-center text-12">주문상태</div>

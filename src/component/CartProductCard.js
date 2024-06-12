@@ -25,10 +25,18 @@ const CartProductCard = ({ item }) => {
         <Col md={2} xs={12}>
           <img src={item.productId.image} width={112} />
         </Col>
-        <Col md={10} xs={12}>
+        <Col
+          md={10}
+          xs={12}
+          className="cart-card-content"
+          style={{ paddingLeft: '25px' }}
+        >
           <div className="display-flex space-between">
             <h3>{item.productId.name}</h3>
-            <button className="trash-button">
+            <button
+              className="trash-button"
+              style={{ border: 'none', background: 'none' }}
+            >
               <FontAwesomeIcon
                 icon={faTrash}
                 width={24}
@@ -42,13 +50,13 @@ const CartProductCard = ({ item }) => {
               {item.productId.price.toLocaleString('ko-KR') + '원'}
             </strong>
           </div>
-          <div>Size: {item.size.toUpperCase()}</div>
+          <div>사이즈 {item.size.toUpperCase()}</div>
           <div>
-            Total:{' '}
+            총 금액{' '}
             {(item.productId.price * item.qty).toLocaleString('ko-KR') + '원'}
           </div>
           <div>
-            Quantity:
+            수량
             <Form.Select
               onChange={(event) =>
                 handleQtyChange(item._id, event.target.value)

@@ -27,9 +27,11 @@ const OrderCompletePage = () => {
         alt="greenCheck.png"
       />
       <h2>주문 완료</h2>
-      <div>주문번호 : {orderNum} </div>
       <div>
-        주문 확인은 ORDER 에서 확인해주세요
+        주문번호 : <strong>{orderNum}</strong>{' '}
+      </div>
+      <div>
+        주문 내역 확인은 ORDER 에서 확인해주세요
         <div className="text-align-center">
           <Link to={'/account/purchase'}>내 주문 바로가기</Link>
         </div>

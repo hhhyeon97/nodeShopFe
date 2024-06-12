@@ -123,10 +123,11 @@ const Navbar = ({ user }) => {
               <FontAwesomeIcon icon={faShoppingBag} />
               {!isMobile && (
                 <span style={{ cursor: 'pointer' }}>{`CART(${
-                  user ? cartItemCount : 0
+                  user && cartItemCount !== undefined ? cartItemCount : 0
                 })`}</span>
               )}
             </div>
+
             <div onClick={handleOrderClick} className="nav-icon">
               <FontAwesomeIcon icon={faBox} />
               {!isMobile && <span style={{ cursor: 'pointer' }}>ORDER</span>}

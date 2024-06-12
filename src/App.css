@@ -337,3 +337,18 @@ body {
   background-color: #fff;
   border-color: #dee2e6;
 }
+
+/* 내 주문 내역 페이지 */
+
+.total-price {
+  color: gray;
+  font-size: 15px;
+}
+
+/* 미디어쿼리 */
+
+@media screen and (max-width: 600px) {
+  .order-info {
+    padding-left: 25px;
+  }
+}

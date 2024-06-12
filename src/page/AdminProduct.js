@@ -44,15 +44,6 @@ const AdminProduct = () => {
     dispatch(productActions.getProductList({ ...searchQuery }));
   }, [query, dispatch]);
 
-  // useEffect(() => {
-  //   if (searchQuery.name === '') {
-  //     delete searchQuery.name;
-  //   }
-  //   const params = new URLSearchParams(searchQuery);
-  //   const queryString = params.toString();
-  //   navigate(`?${queryString}`);
-  // }, [searchQuery]);
-
   useEffect(() => {
     if (searchQuery.name === '') {
       delete searchQuery.name;

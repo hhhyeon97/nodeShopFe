@@ -1,7 +1,8 @@
-import React from "react";
-import { Table, Badge } from "react-bootstrap";
-import { badgeBg } from "../constants/order.constants";
-import { currencyFormat } from "../utils/number";
+import React from 'react';
+import { Table, Badge } from 'react-bootstrap';
+import { badgeBg } from '../constants/order.constants';
+import { currencyFormat } from '../utils/number';
+import moment from 'moment-timezone';
 const OrderTable = ({ header, data, openEditForm }) => {
   return (
     <div className="overflow-x">
@@ -19,7 +20,12 @@ const OrderTable = ({ header, data, openEditForm }) => {
               <tr onClick={() => openEditForm(item)}>
                 <th>{index}</th>
                 <th>{item.orderNum}</th>
-                <th>{item.createdAt.slice(0, 10)}</th>
+                {/* <th>{item.createdAt.slice(0, 10)}</th> */}
+                <th>
+                  {moment(item.createdAt)
+                    .tz('Asia/Seoul')
+                    .format('YYYY-MM-DD HH:mm:ss')}
+                </th>
                 <th>{item.userId.email}</th>
                 {item.items.length > 0 ? (
                   <th>
@@ -30,7 +36,7 @@ const OrderTable = ({ header, data, openEditForm }) => {
                   <th></th>
                 )}
 
-                <th>{item.shipTo.address + " " + item.shipTo.city}</th>
+                <th>{item.shipTo.address + ' ' + item.shipTo.city}</th>
 
                 <th>{currencyFormat(item.totalPrice)}</th>
                 <th>

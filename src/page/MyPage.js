@@ -12,7 +12,6 @@ const MyPage = () => {
   const navigate = useNavigate();
 
   const { orderList } = useSelector((state) => state.order); // Redux store에서 주문 리스트 가져오기
-  const { user } = useSelector((state) => state.user);
 
   //오더리스트 들고오기
   useEffect(() => {

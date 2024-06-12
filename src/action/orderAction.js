@@ -34,20 +34,19 @@ const getOrder = () => async (dispatch) => {
   }
 };
 
-// const getOrderList = (query) => async (dispatch) => {
-//   try {
-//     dispatch({ type: types.GET_ORDER_LIST_REQUEST });
-//     const response = await api.get('/order', { params: query }); // query는 페이지 번호 등을 담고 있어야 합니다.
-//     dispatch({
-//       type: types.GET_ORDER_LIST_SUCCESS,
-//       payload: response.data,
-//     });
-//   } catch (error) {
-//     dispatch({ type: types.GET_ORDER_LIST_FAIL, payload: error.message });
-//   }
-// };
-
-const getOrderList = (query) => async (dispatch) => {};
+const getOrderList = (query) => async (dispatch) => {
+  try {
+    dispatch({ type: types.GET_ORDER_LIST_REQUEST });
+    const response = await api.get('/order/list', {
+      params: { ...query },
+    });
+    console.log('rrr', response);
+    if (response.status !== 200) throw new Error(response.error);
+    dispatch({ type: types.GET_ORDER_LIST_SUCCESS, payload: response.data });
+  } catch (error) {
+    dispatch({ type: types.GET_ORDER_LIST_FAIL, payload: error.error });
+  }
+};
 
 const updateOrder = (id, status) => async (dispatch) => {};
 

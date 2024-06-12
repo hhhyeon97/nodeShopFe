@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
-import SearchBox from "../component/SearchBox";
-import { useDispatch, useSelector } from "react-redux";
-import { orderActions } from "../action/orderAction";
-import OrderDetailDialog from "../component/OrderDetailDialog";
-import OrderTable from "../component/OrderTable";
-import * as types from "../constants/order.constants";
-import ReactPaginate from "react-paginate";
-import { useSearchParams, useNavigate } from "react-router-dom";
-import { commonUiActions } from "../action/commonUiAction";
+import React, { useEffect, useState } from 'react';
+import { Container } from 'react-bootstrap';
+import SearchBox from '../component/SearchBox';
+import { useDispatch, useSelector } from 'react-redux';
+import { orderActions } from '../action/orderAction';
+import OrderDetailDialog from '../component/OrderDetailDialog';
+import OrderTable from '../component/OrderTable';
+import * as types from '../constants/order.constants';
+import ReactPaginate from 'react-paginate';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { commonUiActions } from '../action/commonUiAction';
 
 const AdminOrderPage = () => {
   const navigate = useNavigate();
@@ -16,20 +16,20 @@ const AdminOrderPage = () => {
   const dispatch = useDispatch();
   const orderList = useSelector((state) => state.order.orderList);
   const [searchQuery, setSearchQuery] = useState({
-    page: query.get("page") || 1,
-    ordernum: query.get("ordernum") || "",
+    page: query.get('page') || 1,
+    ordernum: query.get('ordernum') || '',
   });
   const [open, setOpen] = useState(false);
   const totalPageNum = useSelector((state) => state.order.totalPageNum);
   const tableHeader = [
-    "#",
-    "Order#",
-    "Order Date",
-    "User",
-    "Order Item",
-    "Address",
-    "Total Price",
-    "Status",
+    '#',
+    'Order Number',
+    'Order Date',
+    'User',
+    'Order Item',
+    'Address',
+    'Total Price',
+    'Status',
   ];
 
   useEffect(() => {
@@ -37,13 +37,13 @@ const AdminOrderPage = () => {
   }, [query]);
 
   useEffect(() => {
-    if (searchQuery.ordernum === "") {
+    if (searchQuery.ordernum === '') {
       delete searchQuery.ordernum;
     }
     const params = new URLSearchParams(searchQuery);
     const queryString = params.toString();
 
-    navigate("?" + queryString);
+    navigate('?' + queryString);
   }, [searchQuery]);
 
   const openEditForm = (order) => {
@@ -77,12 +77,12 @@ const AdminOrderPage = () => {
           openEditForm={openEditForm}
         />
         <ReactPaginate
-          nextLabel="next >"
+          nextLabel=">"
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
           pageCount={totalPageNum}
           forcePage={searchQuery.page - 1}
-          previousLabel="< previous"
+          previousLabel="<"
           renderOnZeroPageCount={null}
           pageClassName="page-item"
           pageLinkClassName="page-link"

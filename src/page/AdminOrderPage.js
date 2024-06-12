@@ -24,8 +24,8 @@ const AdminOrderPage = () => {
   const tableHeader = [
     '#',
     'Order Number',
-    'Order Date',
     'User',
+    'Order Date',
     'Order Item',
     'Address',
     'Total Price',
@@ -34,7 +34,7 @@ const AdminOrderPage = () => {
 
   useEffect(() => {
     dispatch(orderActions.getOrderList({ ...searchQuery }));
-  }, [query]);
+  }, [query, dispatch]);
 
   useEffect(() => {
     if (searchQuery.ordernum === '') {

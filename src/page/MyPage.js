@@ -11,7 +11,7 @@ const MyPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { orderList } = useSelector((state) => state.order); // Redux store에서 주문 리스트 가져오기
+  const { userOrderList } = useSelector((state) => state.order); // Redux store에서 주문 리스트 가져오기
 
   //오더리스트 들고오기
   useEffect(() => {
@@ -22,7 +22,7 @@ const MyPage = () => {
   // console.log('주문정보', orderList);
 
   // 오더리스트가 없다면? 주문한 상품이 없습니다 메세지 보여주기
-  if (!orderList.length) {
+  if (!userOrderList.length) {
     return (
       <Container className="status-card-container locate-center mt-5">
         주문한 상품이 없습니다.
@@ -32,7 +32,7 @@ const MyPage = () => {
 
   return (
     <Container className="status-card-container">
-      {orderList.map((order) => (
+      {userOrderList.map((order) => (
         <OrderStatusCard key={order.id} order={order} />
       ))}
     </Container>

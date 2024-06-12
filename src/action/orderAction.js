@@ -60,7 +60,8 @@ const updateOrder = (id, status) => async (dispatch) => {
     dispatch(
       commonUiActions.showToastMessage('오더 업데이트 완료!', 'success'),
     );
-    dispatch(getOrderList());
+    dispatch(getOrderList({ page: 1 }));
+    dispatch(getOrder());
   } catch (error) {
     dispatch({ type: types.UPDATE_ORDER_FAIL, error: error });
     dispatch(commonUiActions.showToastMessage(error, 'error'));

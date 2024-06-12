@@ -20,14 +20,13 @@ const OrderTable = ({ header, data, openEditForm }) => {
               <tr onClick={() => openEditForm(item)}>
                 <th>{index}</th>
                 <th>{item.orderNum}</th>
+                <th>{item.userId.email}</th>
                 {/* <th>{item.createdAt.slice(0, 10)}</th> */}
                 <th>
                   {moment(item.createdAt)
                     .tz('Asia/Seoul')
                     .format('YYYY-MM-DD HH:mm:ss')}
                 </th>
-                {/*// todo email 안 나오는 이유 그 백엔드에서 추가로 populate ?..그거 해주면 나올 듯 */}
-                <th>{item.userId.email}</th>
                 {item.items.length > 0 ? (
                   <th>
                     {item.items[0].productId.name}

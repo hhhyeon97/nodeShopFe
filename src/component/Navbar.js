@@ -53,6 +53,16 @@ const Navbar = ({ user }) => {
     dispatch(userActions.logout());
     dispatch({ type: 'CART_RESET' });
   };
+
+  const handleOrderClick = () => {
+    if (!user) {
+      alert('로그인 후 이용 가능합니다!');
+      navigate('/login');
+    } else {
+      navigate('/account/purchase');
+    }
+  };
+
   return (
     <div>
       {showSearchBox && (
@@ -117,10 +127,7 @@ const Navbar = ({ user }) => {
                 })`}</span>
               )}
             </div>
-            <div
-              onClick={() => navigate('/account/purchase')}
-              className="nav-icon"
-            >
+            <div onClick={handleOrderClick} className="nav-icon">
               <FontAwesomeIcon icon={faBox} />
               {!isMobile && <span style={{ cursor: 'pointer' }}>ORDER</span>}
             </div>

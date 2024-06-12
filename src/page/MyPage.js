@@ -5,11 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { orderActions } from '../action/orderAction';
 import OrderStatusCard from '../component/OrderStatusCard';
 import '../style/orderStatus.style.css';
+import { useNavigate } from 'react-router';
 
 const MyPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { orderList } = useSelector((state) => state.order); // Redux store에서 주문 리스트 가져오기
+  const { user } = useSelector((state) => state.user);
 
   //오더리스트 들고오기
   useEffect(() => {

@@ -42,7 +42,7 @@ const AdminOrderPage = () => {
     }
     const params = new URLSearchParams(searchQuery);
     const queryString = params.toString();
-
+    // console.log('qqq', queryString);
     navigate('?' + queryString);
   }, [searchQuery]);
 

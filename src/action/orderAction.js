@@ -40,7 +40,7 @@ const getOrderList = (query) => async (dispatch) => {
     const response = await api.get('/order/list', {
       params: { ...query },
     });
-    console.log('rrr', response);
+    // console.log('rrr', response);
     if (response.status !== 200) throw new Error(response.error);
     dispatch({ type: types.GET_ORDER_LIST_SUCCESS, payload: response.data });
   } catch (error) {

@@ -26,6 +26,7 @@ const OrderTable = ({ header, data, openEditForm }) => {
                     .tz('Asia/Seoul')
                     .format('YYYY-MM-DD HH:mm:ss')}
                 </th>
+                {/*// todo email 안 나오는 이유 그 백엔드에서 추가로 populate ?..그거 해주면 나올 듯 */}
                 <th>{item.userId.email}</th>
                 {item.items.length > 0 ? (
                   <th>

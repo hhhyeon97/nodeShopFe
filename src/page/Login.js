@@ -33,7 +33,6 @@ const Login = () => {
 
   const handleGoogleLogin = async (googleData) => {
     // 구글로 로그인 하기
-    // console.log('hihi', googleData);
     dispatch(userActions.loginWithGoogle(googleData.credential));
   };
 
@@ -87,6 +86,7 @@ const Login = () => {
               클라이언트키, 시크릿키 받아오기
               3. 로그인
               4. 백엔드에서 로그인하기
+                토큰 값을 읽어와서 - > 유저 정보를 뽑아 내기
                   a. 이미 로그인을 한 적이 있는 유저 = > 로그인시키고 토큰값 주기
                   b. 처음 로그인 시도를 한 유저 = > 회원가입 먼저 - > 토큰값 주기
             */}

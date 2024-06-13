@@ -38,9 +38,21 @@ const logout = () => async (dispatch) => {
   sessionStorage.removeItem('token');
   // 로그아웃 하면 카트도 reset 처리
   dispatch({ type: CART_RESET });
+  // 로그아웃 하면 개인오더페이지도 reset 처리
+  // dispatch({type: ORDER_RESET});
 };
 
-const loginWithGoogle = (token) => async (dispatch) => {};
+const loginWithGoogle = (token) => async (dispatch) => {
+  try {
+    dispatch({ type: types.GOOGLE_LOGIN_REQUEST });
+    const response = await api.post('/auth/google', { token });
+    if (response.status !== 200) throw new Error(response.error);
+    dispatch({ type: types.GOOGLE_LOGIN_SUCCESS, payload: response.data });
+  } catch (error) {
+    dispatch({ type: types.GOOGLE_LOGIN_FAIL, payload: error.error });
+    dispatch(commonUiActions.showToastMessage(error.error, 'error'));
+  }
+};
 
 const registerUser =
   ({ email, name, password }, navigate) =>

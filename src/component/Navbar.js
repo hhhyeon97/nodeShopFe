@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { faCircleUser, faUser } from '@fortawesome/free-regular-svg-icons';
 import {
   faBars,
   faBox,
+  faCartShopping,
+  faClipboardList,
   faSearch,
   faShoppingBag,
 } from '@fortawesome/free-solid-svg-icons';
@@ -110,17 +112,17 @@ const Navbar = ({ user }) => {
           <div className="display-flex">
             {user ? (
               <div onClick={logout} className="nav-icon">
-                <FontAwesomeIcon icon={faUser} />
+                <FontAwesomeIcon icon={faCircleUser} />
                 {!isMobile && <span style={{ cursor: 'pointer' }}>LOGOUT</span>}
               </div>
             ) : (
               <div onClick={() => navigate('/login')} className="nav-icon">
-                <FontAwesomeIcon icon={faUser} />
+                <FontAwesomeIcon icon={faCircleUser} />
                 {!isMobile && <span style={{ cursor: 'pointer' }}>LOGIN</span>}
               </div>
             )}
             <div onClick={() => navigate('/cart')} className="nav-icon">
-              <FontAwesomeIcon icon={faShoppingBag} />
+              <FontAwesomeIcon icon={faCartShopping} />
               {!isMobile && (
                 <span style={{ cursor: 'pointer' }}>{`CART(${
                   user && cartItemCount !== undefined ? cartItemCount : 0
@@ -129,7 +131,7 @@ const Navbar = ({ user }) => {
             </div>
 
             <div onClick={handleOrderClick} className="nav-icon">
-              <FontAwesomeIcon icon={faBox} />
+              <FontAwesomeIcon icon={faClipboardList} />
               {!isMobile && <span style={{ cursor: 'pointer' }}>ORDER</span>}
             </div>
             {isMobile && (

@@ -9,10 +9,22 @@ const ProductCard = ({ product }) => {
     navigate(`/product/${id}`);
   };
 
+  // 모든 사이즈의 재고가 0인 경우 확인
+  const isSoldOut = Object.values(product.stock).every((stock) => stock === 0);
+
   return (
-    <div className="card" onClick={() => showProduct(product._id)}>
-      <img src={product?.image} alt={product?.name} width={220} height={330} />
-      <div className="product-name">{product?.name}</div>
+    <div
+      className={`card ${isSoldOut ? 'sold-out' : ''}`}
+      onClick={() => showProduct(product._id)}
+    >
+      <img src={product?.image} alt={product?.name} />
+      {isSoldOut && <div className="sold-out-badge">SOLD OUT</div>}
+      <div
+        className="product-name"
+        style={{ fontWeight: 'bold', color: '#302f30' }}
+      >
+        {product?.name}
+      </div>
       <div className="product-price">
         {product?.price.toLocaleString('ko-KR') + '원'}
       </div>

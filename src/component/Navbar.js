@@ -21,16 +21,7 @@ const Navbar = ({ user }) => {
   const isMobile = window.navigator.userAgent.indexOf('Mobile') !== -1;
   const [showSearchBox, setShowSearchBox] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
-  const menuList = [
-    '여성',
-    'Divided',
-    '남성',
-    '신생아/유아',
-    '아동',
-    'H&M HOME',
-    'Sale',
-    '지속가능성',
-  ];
+  const menuList = ['TOP', 'PANTS', 'ACC/SHOES', 'NOTICE'];
   let [width, setWidth] = useState(0);
   let navigate = useNavigate();
   let location = useLocation();
@@ -145,7 +136,8 @@ const Navbar = ({ user }) => {
 
       <div className="nav-logo">
         <Link to="/">
-          <img width={100} src="/image/hm-logo.png" alt="hm-logo.png" />
+          {/* <img width={100} src="/image/hm-logo.png" alt="hm-logo.png" /> */}
+          <h1 className="logo-title">fuzzy</h1>
         </Link>
       </div>
       <div className="nav-menu-area">

@@ -53,7 +53,7 @@ const Login = () => {
             <Form.Label>Email address</Form.Label>
             <Form.Control
               type="email"
-              placeholder="Enter email"
+              placeholder="예) mern@mern.com"
               required
               onChange={(event) => setEmail(event.target.value)}
             />
@@ -73,12 +73,12 @@ const Login = () => {
               Login
             </Button>
             <div>
-              아직 계정이 없으세요?<Link to="/register">회원가입 하기</Link>{' '}
+              아직 계정이 없으세요? <Link to="/register">회원가입 하기</Link>{' '}
             </div>
           </div>
 
           <div className="text-align-center mt-2">
-            <p>-외부 계정으로 로그인하기-</p>
+            <p>- 간편 로그인 -</p>
             <div className="display-center">
               {/*
               1. 구글 로그인 버튼 가져오기

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { Form, Modal, Button, Col, Table } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from 'react';
+import { Form, Modal, Button, Col, Table } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 
-import "../style/adminOrder.style.css";
-import { ORDER_STATUS } from "../constants/order.constants";
-import { orderActions } from "../action/orderAction";
-import { currencyFormat } from "../utils/number";
+import '../style/adminOrder.style.css';
+import { ORDER_STATUS } from '../constants/order.constants';
+import { orderActions } from '../action/orderAction';
+import { currencyFormat } from '../utils/number';
 
 const OrderDetailDialog = ({ open, handleClose }) => {
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
@@ -33,7 +33,11 @@ const OrderDetailDialog = ({ open, handleClose }) => {
         <p>주문날짜: {selectedOrder.createdAt.slice(0, 10)}</p>
         <p>이메일: {selectedOrder.userId.email}</p>
         <p>
-          주소:{selectedOrder.shipTo.address + " " + selectedOrder.shipTo.city}
+          주소:
+          {selectedOrder.shipTo.address +
+            ' ' +
+            selectedOrder.shipTo.city +
+            selectedOrder.shipTo.zip}
         </p>
         <p>
           연락처:

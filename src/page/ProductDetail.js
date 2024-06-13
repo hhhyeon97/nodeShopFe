@@ -110,15 +110,26 @@ const ProductDetail = () => {
             </Dropdown.Toggle>
             <Dropdown.Menu className="size-drop-down">
               {Object.keys(selectedProduct.stock).length > 0 &&
-                Object.keys(selectedProduct.stock).map((item) => (
-                  <Dropdown.Item
-                    eventKey={item}
-                    key={item}
-                    disabled={selectedProduct.stock[item] <= 0}
-                  >
-                    {item.toUpperCase()}
-                  </Dropdown.Item>
-                ))}
+                Object.keys(selectedProduct.stock).map((item) => {
+                  const stock = selectedProduct.stock[item];
+                  return (
+                    <Dropdown.Item
+                      eventKey={item}
+                      key={item}
+                      disabled={stock <= 0}
+                    >
+                      {item.toUpperCase()}
+                      {stock <= 0 ? (
+                        ' (품절)'
+                      ) : stock <= 5 ? (
+                        <span style={{ color: 'red' }}>
+                          {' '}
+                          (품절임박·잔여 {stock}개)
+                        </span>
+                      ) : null}
+                    </Dropdown.Item>
+                  );
+                })}
             </Dropdown.Menu>
           </Dropdown>
           <div className="warning-message">

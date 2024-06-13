@@ -345,6 +345,12 @@ body {
   font-size: 15px;
 }
 
+/* 카트 페이지 */
+.stock-message {
+  font-weight: bold;
+  color: rgb(223, 110, 110);
+}
+
 /* 미디어쿼리 */
 
 @media screen and (max-width: 600px) {

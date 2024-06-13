@@ -32,7 +32,9 @@ const CartProductCard = ({ item }) => {
           style={{ paddingLeft: '25px' }}
         >
           <div className="display-flex space-between">
-            <h3>{item.productId.name}</h3>
+            <h3>
+              <strong>{item.productId.name}</strong>
+            </h3>
             <button
               className="trash-button"
               style={{ border: 'none', background: 'none' }}
@@ -50,7 +52,7 @@ const CartProductCard = ({ item }) => {
               {item.productId.price.toLocaleString('ko-KR') + '원'}
             </strong>
           </div>
-          <div>사이즈 {item.size.toUpperCase()}</div>
+          <div>사이즈 {item.size.toUpperCase()} </div>
           <div>
             총 금액{' '}
             {(item.productId.price * item.qty).toLocaleString('ko-KR') + '원'}

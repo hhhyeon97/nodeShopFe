@@ -44,7 +44,7 @@ const AdminOrderPage = () => {
     const queryString = params.toString();
     // console.log('qqq', queryString);
     navigate('?' + queryString);
-  }, [searchQuery]);
+  }, [searchQuery, navigate]);
 
   const openEditForm = (order) => {
     setOpen(true);
@@ -99,7 +99,14 @@ const AdminOrderPage = () => {
         />
       </Container>
 
-      {open && <OrderDetailDialog open={open} handleClose={handleClose} />}
+      {open && (
+        <OrderDetailDialog
+          open={open}
+          handleClose={handleClose}
+          navigate={navigate}
+          setSearchQuery={setSearchQuery}
+        />
+      )}
     </div>
   );
 };

@@ -7,16 +7,22 @@ import { ORDER_STATUS } from '../constants/order.constants';
 import { orderActions } from '../action/orderAction';
 import { currencyFormat } from '../utils/number';
 
-const OrderDetailDialog = ({ open, handleClose }) => {
+const OrderDetailDialog = ({ open, handleClose, navigate, setSearchQuery }) => {
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
   const [orderStatus, setOrderStatus] = useState(selectedOrder.status);
   const dispatch = useDispatch();
-
   const handleStatusChange = (event) => {
     setOrderStatus(event.target.value);
   };
   const submitStatus = () => {
-    dispatch(orderActions.updateOrder(selectedOrder._id, orderStatus));
+    dispatch(
+      orderActions.updateOrder(
+        selectedOrder._id,
+        orderStatus,
+        navigate,
+        setSearchQuery,
+      ),
+    );
     handleClose();
   };
 

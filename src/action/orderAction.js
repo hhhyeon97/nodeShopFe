@@ -48,25 +48,28 @@ const getOrderList = (query) => async (dispatch) => {
   }
 };
 
-const updateOrder = (id, status) => async (dispatch) => {
-  try {
-    dispatch({ type: types.UPDATE_ORDER_REQUEST });
-    const response = await api.put(`/order/${id}`, { status });
-    if (response.status !== 200) throw new Error(response.error);
-    dispatch({
-      type: types.UPDATE_ORDER_SUCCESS,
-      payload: response.data,
-    });
-    dispatch(
-      commonUiActions.showToastMessage('오더 업데이트 완료!', 'success'),
-    );
-    dispatch(getOrderList({ page: 1 }));
-    dispatch(getOrder());
-  } catch (error) {
-    dispatch({ type: types.UPDATE_ORDER_FAIL, error: error });
-    dispatch(commonUiActions.showToastMessage(error, 'error'));
-  }
-};
+const updateOrder =
+  (id, status, navigate, setSearchQuery) => async (dispatch) => {
+    try {
+      dispatch({ type: types.UPDATE_ORDER_REQUEST });
+      const response = await api.put(`/order/${id}`, { status });
+      if (response.status !== 200) throw new Error(response.error);
+      dispatch({
+        type: types.UPDATE_ORDER_SUCCESS,
+        payload: response.data,
+      });
+      dispatch(
+        commonUiActions.showToastMessage('오더 업데이트 완료!', 'success'),
+      );
+      dispatch(getOrderList({ page: 1 }));
+      setSearchQuery({ page: 1 });
+      navigate('?page=1');
+      dispatch(getOrder());
+    } catch (error) {
+      dispatch({ type: types.UPDATE_ORDER_FAIL, error: error });
+      dispatch(commonUiActions.showToastMessage(error, 'error'));
+    }
+  };
 
 export const resetOrder = () => ({
   type: types.ORDER_RESET,

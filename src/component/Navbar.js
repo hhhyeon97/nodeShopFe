@@ -91,7 +91,7 @@ const Navbar = ({ user }) => {
       </div>
       {user && user.level === 'admin' && (
         <Link to="/admin/product?page=1" className="link-area">
-          Admin page
+          관리자 페이지 이동하기
         </Link>
       )}
       <div className="nav-header">
@@ -137,7 +137,7 @@ const Navbar = ({ user }) => {
       <div className="nav-logo">
         <Link to="/">
           {/* <img width={100} src="/image/hm-logo.png" alt="hm-logo.png" /> */}
-          <h1 className="logo-title">fuzzy</h1>
+          <h1 className="logo-title">*fuzzy​*</h1>
         </Link>
       </div>
       <div className="nav-menu-area">

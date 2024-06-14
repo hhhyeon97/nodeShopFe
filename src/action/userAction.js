@@ -1,6 +1,7 @@
 import api from '../utils/api';
 import * as types from '../constants/user.constants';
 import { CART_RESET } from '../constants/cart.constants';
+import { ORDER_RESET } from '../constants/order.constants';
 import { commonUiActions } from './commonUiAction';
 import * as commonTypes from '../constants/commonUI.constants';
 const loginWithToken = () => async (dispatch) => {
@@ -39,7 +40,7 @@ const logout = () => async (dispatch) => {
   // 로그아웃 하면 카트도 reset 처리
   dispatch({ type: CART_RESET });
   // 로그아웃 하면 개인오더페이지도 reset 처리
-  // dispatch({type: ORDER_RESET});
+  dispatch({ type: ORDER_RESET });
 };
 
 const loginWithGoogle = (token) => async (dispatch) => {

@@ -68,6 +68,10 @@ const updateOrder = (id, status) => async (dispatch) => {
   }
 };
 
+export const resetOrder = () => ({
+  type: types.ORDER_RESET,
+});
+
 export const orderActions = {
   createOrder,
   getOrder,

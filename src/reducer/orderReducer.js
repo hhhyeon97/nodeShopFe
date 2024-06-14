@@ -39,6 +39,8 @@ function orderReducer(state = initialState, action) {
       return { ...state, loading: false, error: payload };
     case types.SET_SELECTED_ORDER:
       return { ...state, selectedOrder: payload };
+    case types.ORDER_RESET:
+      return { userOrderList: [] };
     default:
       return state;
   }

@@ -12,6 +12,7 @@ import ProductDetail from '../page/ProductDetail';
 import RegisterPage from '../page/RegisterPage';
 import PrivateRoute from './PrivateRoute';
 import NoticePage from '../page/NoticePage';
+import AdminNotice from '../page/AdminNotice';
 
 const AppRouter = () => {
   return (
@@ -30,6 +31,7 @@ const AppRouter = () => {
       <Route element={<PrivateRoute permissionLevel="admin" />}>
         <Route path="/admin/product" element={<AdminProduct />} />
         <Route path="/admin/order" element={<AdminOrderPage />} />
+        <Route path="/admin/notice" element={<AdminNotice />} />
       </Route>
     </Routes>
   );

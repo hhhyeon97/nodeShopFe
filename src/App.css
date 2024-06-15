@@ -421,6 +421,12 @@ body {
   letter-spacing: 5px;
 }
 
+/* notice*/
+
+.notice-page-area {
+  text-align: center;
+}
+
 /* ================= 
 todo 모바일일때 랜딩페이지 카드 다 무너지고 있슈
 

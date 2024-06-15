@@ -1,7 +1,7 @@
 import React from 'react';
 
 const NoticePage = () => {
-  return <div>notice !</div>;
+  return <div className="notice-page-area">📢 업데이트 예정입니다 !</div>;
 };
 
 export default NoticePage;

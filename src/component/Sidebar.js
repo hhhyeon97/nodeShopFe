@@ -33,6 +33,12 @@ const Sidebar = () => {
           >
             주문 관리
           </li>
+          <li
+            className="sidebar-item"
+            onClick={() => handleSelectMenu('/admin/notice')}
+          >
+            공지사항 관리
+          </li>
         </ul>
       </div>
     );

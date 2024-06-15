@@ -61,6 +61,12 @@ const Navbar = ({ user }) => {
     }
   };
 
+  const handleNavigate = (menu) => {
+    if (menu === 'NOTICE') {
+      navigate('/notice');
+    }
+  };
+
   return (
     <div>
       {showSearchBox && (
@@ -152,7 +158,9 @@ const Navbar = ({ user }) => {
         <ul className="menu">
           {menuList.map((menu, index) => (
             <li key={index}>
-              <a href="#">{menu}</a>
+              <a href="#" onClick={() => handleNavigate(menu)}>
+                {menu}
+              </a>
             </li>
           ))}
         </ul>

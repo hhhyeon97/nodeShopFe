@@ -427,6 +427,13 @@ body {
   text-align: center;
 }
 
+/* slide */
+.carousel-image {
+  height: 500px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
 /* ================= 
 todo 모바일일때 랜딩페이지 카드 다 무너지고 있슈
 
@@ -435,5 +442,9 @@ todo 모바일일때 랜딩페이지 카드 다 무너지고 있슈
 @media screen and (max-width: 600px) {
   .order-info {
     padding-left: 25px;
+  }
+  .carousel-image {
+    height: 400px;
+    object-fit: cover;
   }
 }

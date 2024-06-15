@@ -59,25 +59,15 @@ const CartProductCard = ({ item }) => {
           </div>
           <div>
             수량
-            <Form.Select
+            <Form.Control
+              type="number"
+              min="1"
+              value={item.qty}
               onChange={(event) =>
                 handleQtyChange(item._id, event.target.value)
               }
-              required
-              defaultValue={item.qty}
-              className="qty-dropdown"
-            >
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-              <option value={6}>6</option>
-              <option value={7}>7</option>
-              <option value={8}>8</option>
-              <option value={9}>9</option>
-              <option value={10}>10</option>
-            </Form.Select>
+              className="qty-input"
+            />
           </div>
         </Col>
       </Row>

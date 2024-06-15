@@ -89,7 +89,9 @@ const ProductDetail = () => {
           <img src={selectedProduct.image} className="w-100" alt="image" />
         </Col>
         <Col className="product-info-area" sm={6}>
-          <div className="product-info">{selectedProduct.name}</div>
+          <div className="product-info" style={{ fontWeight: 'bold' }}>
+            {selectedProduct.name}
+          </div>
           <div className="product-info">
             {selectedProduct.price.toLocaleString() + '원'}
           </div>

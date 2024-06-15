@@ -150,7 +150,6 @@ const Navbar = ({ user }) => {
 
       <div className="nav-logo">
         <Link to="/">
-          {/* <img width={100} src="/image/hm-logo.png" alt="hm-logo.png" /> */}
           <h1 className="logo-title">*fuzzy​*</h1>
         </Link>
       </div>

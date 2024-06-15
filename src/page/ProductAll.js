@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import ProductCard from '../component/ProductCard';
-import { Row, Col, Container } from 'react-bootstrap';
+import { Row, Col, Container, Carousel } from 'react-bootstrap';
 import { useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { productActions } from '../action/productAction';
@@ -49,6 +49,36 @@ const ProductAll = () => {
 
   return (
     <Container>
+      <Carousel
+        fade
+        controls={false}
+        indicators={true}
+        pause={false}
+        interval={3000}
+        className="mb-4"
+      >
+        <Carousel.Item>
+          <img
+            className="d-block w-100 carousel-image"
+            src="image/slide.png"
+            alt="First slide"
+          />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100 carousel-image"
+            src="image/slide2.png"
+            alt="Second slide"
+          />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100 carousel-image"
+            src="https://i.pinimg.com/736x/46/57/5a/46575ac2320ee94401d3b289912dfec0.jpg"
+            alt="Third slide"
+          />
+        </Carousel.Item>
+      </Carousel>
       {searchTerm && productList.length > 0 && (
         <div className="search-results-message">
           총 {productList.length} 개의 상품이 검색 되었습니다.

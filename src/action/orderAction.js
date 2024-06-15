@@ -49,7 +49,7 @@ const getOrderList = (query) => async (dispatch) => {
 };
 
 const updateOrder =
-  (id, status, navigate, setSearchQuery) => async (dispatch) => {
+  (id, status, navigate, setSearchQuery, currentPage) => async (dispatch) => {
     try {
       dispatch({ type: types.UPDATE_ORDER_REQUEST });
       const response = await api.put(`/order/${id}`, { status });
@@ -61,9 +61,11 @@ const updateOrder =
       dispatch(
         commonUiActions.showToastMessage('오더 업데이트 완료!', 'success'),
       );
-      dispatch(getOrderList({ page: 1 }));
-      setSearchQuery({ page: 1 });
-      navigate('?page=1');
+      dispatch(getOrderList({ page: currentPage }));
+      setSearchQuery({ page: currentPage });
+      navigate(`?page=${currentPage}`);
+      // setSearchQuery({ page: 1 });
+      // navigate('?page=1');
       dispatch(getOrder());
     } catch (error) {
       dispatch({ type: types.UPDATE_ORDER_FAIL, error: error });

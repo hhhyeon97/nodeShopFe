@@ -200,7 +200,7 @@ body {
 }
 .sidebar-item:hover {
   color: white;
-  background-color: red;
+  background-color: rgb(122, 174, 243);
   font-weight: bold;
 }
 .sidebar-area {
@@ -406,6 +406,13 @@ body {
 }
 .nav-logo a {
   text-decoration: none;
+}
+
+.side-bar-logo {
+  font-family: 'logo-font';
+  font-size: 45px;
+  color: black;
+  letter-spacing: 5px;
 }
 
 /* ================= 

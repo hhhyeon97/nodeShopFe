@@ -6,10 +6,11 @@ import { cartActions } from '../action/cartAction';
 import CartProductCard from '../component/CartProductCard';
 import OrderReceipt from '../component/OrderReceipt';
 import '../style/cart.style.css';
+import { ColorRing } from 'react-loader-spinner';
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  const { cartList, totalPrice } = useSelector((state) => state.cart);
+  const { cartList, totalPrice, loading } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
   // useEffect(() => {
   //   //카트리스트 불러오기
@@ -22,6 +23,22 @@ const CartPage = () => {
       dispatch(cartActions.getCartList());
     }
   }, [dispatch, user]);
+
+  if (loading) {
+    return (
+      <div className="center-spinner">
+        <ColorRing
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+          colors={['#779fe0', '#6d7787', '#e1e6ed']}
+        />
+      </div>
+    );
+  }
 
   return (
     <Container>

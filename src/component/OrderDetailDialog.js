@@ -7,7 +7,13 @@ import { ORDER_STATUS } from '../constants/order.constants';
 import { orderActions } from '../action/orderAction';
 import { currencyFormat } from '../utils/number';
 
-const OrderDetailDialog = ({ open, handleClose, navigate, setSearchQuery }) => {
+const OrderDetailDialog = ({
+  open,
+  handleClose,
+  navigate,
+  setSearchQuery,
+  currentPage,
+}) => {
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
   const [orderStatus, setOrderStatus] = useState(selectedOrder.status);
   const dispatch = useDispatch();
@@ -21,6 +27,7 @@ const OrderDetailDialog = ({ open, handleClose, navigate, setSearchQuery }) => {
         orderStatus,
         navigate,
         setSearchQuery,
+        currentPage,
       ),
     );
     handleClose();

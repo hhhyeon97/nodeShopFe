@@ -109,6 +109,7 @@ const AdminOrderPage = () => {
           handleClose={handleClose}
           navigate={navigate}
           setSearchQuery={setSearchQuery}
+          currentPage={searchQuery.page}
         />
       )}
     </div>

@@ -30,6 +30,7 @@ function cartReducer(state = initialState, action) {
       return {
         ...state,
         cartList: payload,
+        loading: false,
         totalPrice: payload.reduce(
           (total, item) => (total += item.productId.price * item.qty),
           0,

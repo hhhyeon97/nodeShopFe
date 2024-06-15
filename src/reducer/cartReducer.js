@@ -19,10 +19,11 @@ function cartReducer(state = initialState, action) {
   switch (type) {
     case types.ADD_TO_CART_REQUEST:
     case types.GET_CART_LIST_REQUEST:
-    case types.DELETE_CART_ITEM_REQUEST:
-    case types.UPDATE_CART_ITEM_REQUEST:
     case types.GET_CART_QTY_REQUEST:
       return { ...state, loading: true };
+    case types.DELETE_CART_ITEM_REQUEST:
+    case types.UPDATE_CART_ITEM_REQUEST:
+      return { ...state };
     case types.ADD_TO_CART_SUCCESS:
     case types.DELETE_CART_ITEM_SUCCESS:
       return { ...state, cartItemQty: payload };

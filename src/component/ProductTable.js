@@ -26,7 +26,7 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
                 <th>{index}</th>
                 <th>{item.sku}</th>
                 <th style={{ minWidth: '100px' }}>{item.name}</th>
-                <th>{currencyFormat(item.price)}</th>
+                <th>{item.price.toLocaleString('ko-KR') + '원'}</th>
                 <th>
                   {Object.keys(item.stock).map((size, index) => (
                     <div key={index}>

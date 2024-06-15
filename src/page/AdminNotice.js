@@ -6,7 +6,7 @@ import NewNoticeDialog from '../component/NewNoticeDialog';
 
 const AdminNotice = () => {
   const dispatch = useDispatch();
-  const { notices } = useSelector((state) => state.notice);
+  const { notice } = useSelector((state) => state.notice);
   const [showDialog, setShowDialog] = useState(false);
 
   useEffect(() => {

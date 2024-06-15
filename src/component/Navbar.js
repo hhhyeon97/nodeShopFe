@@ -26,7 +26,7 @@ const Navbar = ({ user }) => {
   const isMobile = window.navigator.userAgent.indexOf('Mobile') !== -1;
   const [showSearchBox, setShowSearchBox] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
-  const menuList = ['TOP', 'PANTS', 'ACC/SHOES', 'NOTICE'];
+  const menuList = ['TOP', 'PANTS', 'NOTICE'];
   let [width, setWidth] = useState(0);
   let navigate = useNavigate();
   let location = useLocation();

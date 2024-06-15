@@ -9,19 +9,18 @@ const OrderTable = ({ header, data, openEditForm }) => {
       <Table striped bordered hover>
         <thead>
           <tr>
-            {header.map((title) => (
-              <th>{title}</th>
+            {header.map((title, index) => (
+              <th key={index}>{title}</th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {data.length > 0 ? (
+          {data?.length > 0 ? (
             data.map((item, index) => (
-              <tr onClick={() => openEditForm(item)}>
+              <tr key={item._id} onClick={() => openEditForm(item)}>
                 <th>{index}</th>
                 <th>{item.orderNum}</th>
                 <th>{item.userId.email}</th>
-                {/* <th>{item.createdAt.slice(0, 10)}</th> */}
                 <th>
                   {moment(item.createdAt)
                     .tz('Asia/Seoul')
@@ -35,9 +34,7 @@ const OrderTable = ({ header, data, openEditForm }) => {
                 ) : (
                   <th></th>
                 )}
-
                 <th>{item.shipTo.address + ' ' + item.shipTo.city}</th>
-
                 <th>{item.totalPrice.toLocaleString('ko-KR') + '원'}</th>
                 <th>
                   <Badge bg={badgeBg[item.status]}>{item.status}</Badge>
@@ -45,7 +42,9 @@ const OrderTable = ({ header, data, openEditForm }) => {
               </tr>
             ))
           ) : (
-            <tr>No Data to show</tr>
+            <tr>
+              <td colSpan={header.length}>No Data to show</td>
+            </tr>
           )}
         </tbody>
       </Table>

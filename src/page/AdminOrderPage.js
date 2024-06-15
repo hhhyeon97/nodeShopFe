@@ -14,13 +14,13 @@ const AdminOrderPage = () => {
   const navigate = useNavigate();
   const [query, setQuery] = useSearchParams();
   const dispatch = useDispatch();
-  const orderList = useSelector((state) => state.order.orderList);
+  const orderList = useSelector((state) => state.order.orderList) || [];
   const [searchQuery, setSearchQuery] = useState({
     page: query.get('page') || 1,
     ordernum: query.get('ordernum') || '',
   });
   const [open, setOpen] = useState(false);
-  const totalPageNum = useSelector((state) => state.order.totalPageNum);
+  const totalPageNum = useSelector((state) => state.order.totalPageNum) || 1;
   const tableHeader = [
     '#',
     'Order Number',
@@ -71,11 +71,15 @@ const AdminOrderPage = () => {
           />
         </div>
 
-        <OrderTable
-          header={tableHeader}
-          data={orderList}
-          openEditForm={openEditForm}
-        />
+        {orderList.length > 0 && (
+          <OrderTable
+            header={tableHeader}
+            data={orderList}
+            openEditForm={openEditForm}
+          />
+        )}
+        {orderList.length === 0 && <p>No orders available.</p>}
+
         <ReactPaginate
           nextLabel=">"
           onPageChange={handlePageClick}

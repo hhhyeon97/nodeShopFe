@@ -15,12 +15,6 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const error = useSelector((state) => state.user.error);
 
-  // useEffect(() => {
-  //   return () => {
-  //     dispatch(userActions.resetError());
-  //   };
-  // }, [dispatch]);
-
   useEffect(() => {
     dispatch(userActions.resetError()); // 마운트 시 에러 리셋
   }, [dispatch]);
@@ -50,7 +44,7 @@ const Login = () => {
         )}
         <Form className="login-form" onSubmit={loginWithEmail}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
+            <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
               placeholder="예) mern@mern.com"

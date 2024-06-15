@@ -21,9 +21,9 @@ const AdminNotice = () => {
     setShowDialog(true);
   };
 
-  if (!notices) {
-    return <div>Loading...</div>; // 로딩 중일 때 보여줄 메시지 또는 스피너
-  }
+  // if (!notices) {
+  //   return <div>Loading...</div>; // 로딩 중일 때 보여줄 메시지 또는 스피너
+  // }
 
   return (
     <Container>
@@ -31,7 +31,7 @@ const AdminNotice = () => {
         Add New Notice +
       </Button>
 
-      {notices.length === 0 ? (
+      {/* {notices.length === 0 ? (
         <div>No notices found.</div> // 데이터가 없을 때 보여줄 메시지
       ) : (
         <Table striped bordered hover>
@@ -61,7 +61,7 @@ const AdminNotice = () => {
             ))}
           </tbody>
         </Table>
-      )}
+      )} */}
 
       <NewNoticeDialog showDialog={showDialog} setShowDialog={setShowDialog} />
     </Container>

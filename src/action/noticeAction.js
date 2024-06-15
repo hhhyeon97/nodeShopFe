@@ -3,10 +3,10 @@ import * as types from '../constants/notice.constants';
 import { toast } from 'react-toastify';
 import { commonUiActions } from './commonUiAction';
 
-const createNotice = (title, content) => async (dispatch) => {
+const createNotice = (formData) => async (dispatch) => {
   try {
     dispatch({ type: types.CREATE_NOTICE_REQUEST });
-    const response = await api.post('/notice', title, content);
+    const response = await api.post('/notice', formData);
     if (response.status !== 200) throw new Error(response.error);
     dispatch({ type: types.CREATE_NOTICE_SUCCESS });
     dispatch(commonUiActions.showToastMessage('공지사항 추가 완료', 'success'));

@@ -2,31 +2,43 @@ import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { noticeActions } from '../action/noticeAction';
+import { commonUiActions } from '../action/commonUiAction';
+
+const InitialFormData = {
+  title: '',
+  content: '',
+};
 
 const NewNoticeDialog = ({ showDialog, setShowDialog }) => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
   const dispatch = useDispatch();
+  const [formData, setFormData] = useState(InitialFormData);
   const { loading, error, success } = useSelector((state) => state.notice);
 
   const handleClose = () => {
-    setTitle('');
-    setContent('');
     setShowDialog(false);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(noticeActions.createNotice({ title, content }));
+    dispatch(noticeActions.createNotice({ formData }));
     if (success) {
       handleClose();
     }
   };
 
+  const handleChange = (event) => {
+    //form에 데이터 넣어주기
+    const { id, value } = event.target;
+    setFormData({ ...formData, [id]: value });
+  };
+
   return (
     <Modal show={showDialog} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Create New Notice</Modal.Title>
+        <Modal.Title>
+          {/* {mode === 'new' ? 'Create New Notice' : 'Edit Notice'} */}
+          add new notice !
+        </Modal.Title>
       </Modal.Header>
       <Form onSubmit={handleSubmit}>
         <Modal.Body>
@@ -35,20 +47,19 @@ const NewNoticeDialog = ({ showDialog, setShowDialog }) => {
             <Form.Control
               type="text"
               placeholder="Enter title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={formData.title}
+              onChange={handleChange}
               required
             />
           </Form.Group>
-
           <Form.Group controlId="content">
             <Form.Label>Content</Form.Label>
             <Form.Control
               as="textarea"
               rows={3}
               placeholder="Enter content"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
+              value={formData.content}
+              onChange={handleChange}
               required
             />
           </Form.Group>
@@ -57,12 +68,12 @@ const NewNoticeDialog = ({ showDialog, setShowDialog }) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" type="submit" disabled={loading}>
-            {loading ? 'Loading…' : 'Submit'}
+          <Button variant="primary" type="submit">
+            {/* {mode === 'new' ? 'Create' : 'Save changes'} */}
+            Save
           </Button>
         </Modal.Footer>
       </Form>
-      {error && <div className="alert alert-danger mt-2">{error}</div>}
     </Modal>
   );
 };

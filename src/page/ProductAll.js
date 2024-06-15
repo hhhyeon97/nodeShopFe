@@ -74,7 +74,7 @@ const ProductAll = () => {
         <Carousel.Item>
           <img
             className="d-block w-100 carousel-image"
-            src="https://i.pinimg.com/736x/46/57/5a/46575ac2320ee94401d3b289912dfec0.jpg"
+            src="image/slide3.png"
             alt="Third slide"
           />
         </Carousel.Item>

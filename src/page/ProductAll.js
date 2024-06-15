@@ -60,7 +60,7 @@ const ProductAll = () => {
         <Carousel.Item>
           <img
             className="d-block w-100 carousel-image"
-            src="image/slide.png"
+            src="image/edit1.png"
             alt="First slide"
           />
         </Carousel.Item>

@@ -7,6 +7,7 @@ import { productActions } from '../action/productAction';
 import { commonUiActions } from '../action/commonUiAction';
 import { TextAlignment } from '@cloudinary/url-gen/qualifiers';
 import { ColorRing } from 'react-loader-spinner';
+import ImageCarousel from '../component/ImageCarousel';
 
 const ProductAll = () => {
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ const ProductAll = () => {
 
   return (
     <Container>
-      <Carousel
+      {/* <Carousel
         fade
         controls={false}
         indicators={true}
@@ -78,7 +79,8 @@ const ProductAll = () => {
             alt="Third slide"
           />
         </Carousel.Item>
-      </Carousel>
+      </Carousel> */}
+      <ImageCarousel />
       {searchTerm && productList.length > 0 && (
         <div className="search-results-message">
           총 {productList.length} 개의 상품이 검색 되었습니다.

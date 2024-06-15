@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleUser, faUser } from '@fortawesome/free-regular-svg-icons';
+import {
+  faCircleUser,
+  faStar,
+  faUser,
+} from '@fortawesome/free-regular-svg-icons';
 import {
   faBars,
   faBox,
@@ -8,6 +12,7 @@ import {
   faClipboardList,
   faSearch,
   faShoppingBag,
+  faUserAstronaut,
 } from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -90,9 +95,12 @@ const Navbar = ({ user }) => {
         </div>
       </div>
       {user && user.level === 'admin' && (
-        <Link to="/admin/product?page=1" className="link-area">
-          관리자 페이지 이동하기
-        </Link>
+        <span className="admin-link">
+          <Link to="/admin/product?page=1">
+            <FontAwesomeIcon icon={faUserAstronaut} className="admin-icon" />
+            &nbsp; 관리자 페이지 이동하기
+          </Link>
+        </span>
       )}
       <div className="nav-header">
         <div className="burger-menu hide">

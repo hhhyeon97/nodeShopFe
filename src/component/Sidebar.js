@@ -19,19 +19,19 @@ const Sidebar = () => {
             <h1 className="side-bar-logo">*fuzzy​*</h1>
           </Link>
         </div>
-        <div className="sidebar-item">Admin Account</div>
+        <div className="sidebar-item">계정 관리</div>
         <ul className="sidebar-area">
           <li
             className="sidebar-item"
             onClick={() => handleSelectMenu('/admin/product?page=1')}
           >
-            product
+            상품 관리
           </li>
           <li
             className="sidebar-item"
             onClick={() => handleSelectMenu('/admin/order?page=1')}
           >
-            order
+            주문 관리
           </li>
         </ul>
       </div>

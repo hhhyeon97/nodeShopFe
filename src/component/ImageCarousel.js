@@ -1,6 +1,57 @@
 import React, { useEffect, useState } from 'react';
-import { Carousel } from 'react-bootstrap';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 import { ColorRing } from 'react-loader-spinner';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+
+const CustomLeftArrow = ({ onClick }) => {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        position: 'absolute',
+        left: '15px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        // backgroundColor: 'rgba(255,255,255, 0.5)',
+        background: 'none',
+        opacity: '0.6',
+        border: 'none',
+        borderRadius: '50%',
+        color: 'gray',
+        cursor: 'pointer',
+        padding: '10px 15px',
+      }}
+    >
+      <FontAwesomeIcon icon={faAngleLeft} fontSize={'45px'} />
+    </button>
+  );
+};
+
+const CustomRightArrow = ({ onClick }) => {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        position: 'absolute',
+        right: '15px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        // backgroundColor: 'rgba(255,255,255, 0.5)',
+        background: 'none',
+        opacity: '0.6',
+        border: 'none',
+        borderRadius: '50%',
+        color: 'gray',
+        cursor: 'pointer',
+        padding: '10px 15px',
+      }}
+    >
+      <FontAwesomeIcon icon={faAngleRight} fontSize={'45px'} />
+    </button>
+  );
+};
 
 const ImageCarousel = () => {
   const [imagesLoaded, setImagesLoaded] = useState(false);
@@ -25,38 +76,50 @@ const ImageCarousel = () => {
     preloadImages();
   }, [images]);
 
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 1,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 1,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 1,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
+
   return (
-    <div>
+    <div style={{ marginBottom: '20px' }}>
       {imagesLoaded ? (
         <Carousel
-          fade
-          controls={false}
-          indicators={true}
-          pause={false}
-          interval={5000}
-          className="mb-4"
+          responsive={responsive}
+          autoPlay
+          autoPlaySpeed={5000}
+          infinite
+          showDots={false}
+          customTransition="transform 500ms ease-in-out"
+          containerClass="carousel-container"
+          itemClass="carousel-item-padding-40-px"
+          removeArrowOnDeviceType={['tablet', 'mobile']}
+          customLeftArrow={<CustomLeftArrow />}
+          customRightArrow={<CustomRightArrow />}
         >
-          <Carousel.Item>
-            <img
-              className="d-block w-100 carousel-image"
-              src="image/edit2.png"
-              alt="First slide"
-            />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-100 carousel-image"
-              src="image/edit3.png"
-              alt="Second slide"
-            />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-100 carousel-image"
-              src="image/edit1.png"
-              alt="Third slide"
-            />
-          </Carousel.Item>
+          {images.map((src, index) => (
+            <div key={index}>
+              <img
+                className="d-block w-100 carousel-image"
+                src={src}
+                alt={`slide-${index}`}
+              />
+            </div>
+          ))}
         </Carousel>
       ) : (
         <div className="center-spinner">

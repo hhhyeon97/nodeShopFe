@@ -123,7 +123,7 @@ body {
 }
 
 .add-button {
-  margin-top: 20px;
+  margin: 20px auto 60px auto;
   width: 100%;
 }
 
@@ -428,11 +428,21 @@ body {
 }
 
 /* slide */
-.carousel-image {
+/* .carousel-image {
   height: 500px;
-  /* object-fit: cover; */
+  object-fit: cover;
   border-radius: 10px;
   transition: 3s ease-in-out;
+} */
+
+.carousel-container {
+  max-height: 500px;
+}
+
+.carousel-item-padding-40-px img {
+  height: 500px;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 /* ================= 
@@ -444,8 +454,14 @@ todo 모바일일때 랜딩페이지 카드 다 무너지고 있슈
   .order-info {
     padding-left: 25px;
   }
-  .carousel-image {
+  /* .carousel-image {
     height: 400px;
     object-fit: cover;
+  } */
+  .card {
+    /* width: 300px; */
+  }
+  .card:hover {
+    transform: none;
   }
 }

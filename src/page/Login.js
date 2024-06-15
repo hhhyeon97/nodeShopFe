@@ -30,10 +30,23 @@ const Login = () => {
     dispatch(userActions.loginWithGoogle(googleData.credential));
   };
 
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   if (token) {
+  //     dispatch(userActions.loginWithToken());
+  //   }
+  // }, [dispatch]);
+
   // 이미 로그인한 유저 로그인페이지 이동 방지
-  if (user) {
-    navigate('/');
-  }
+  // if (user) {
+  //   navigate('/');
+  // }
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
+
   return (
     <>
       <Container className="login-area">

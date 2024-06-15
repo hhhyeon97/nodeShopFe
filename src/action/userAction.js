@@ -26,7 +26,7 @@ const loginWithEmail =
       dispatch({ type: types.LOGIN_REQUEST });
       const response = await api.post('/auth/login', { email, password });
       if (response.status !== 200) throw new Error(response.error);
-      sessionStorage.setItem('token', response.data.token);
+      localStorage.setItem('token', response.data.token); // localStorage로 변경
       dispatch({ type: types.LOGIN_SUCCESS, payload: response.data });
     } catch (error) {
       dispatch({ type: types.LOGIN_FAIL, payload: error.error });
@@ -35,8 +35,8 @@ const loginWithEmail =
 const logout = () => async (dispatch) => {
   // user 정보 지우고
   dispatch({ type: types.LOGOUT });
-  // 세션 토큰 값도 지우자
-  sessionStorage.removeItem('token');
+  // localStorage에서 토큰 제거
+  localStorage.removeItem('token');
   // 로그아웃 하면 카트도 reset 처리
   dispatch({ type: CART_RESET });
   // 로그아웃 하면 개인오더페이지도 reset 처리
@@ -48,7 +48,7 @@ const loginWithGoogle = (token) => async (dispatch) => {
     dispatch({ type: types.GOOGLE_LOGIN_REQUEST });
     const response = await api.post('/auth/google', { token });
     if (response.status !== 200) throw new Error(response.error);
-    sessionStorage.setItem('token', response.data.token);
+    localStorage.setItem('token', response.data.token); // localStorage로 변경
     dispatch({ type: types.GOOGLE_LOGIN_SUCCESS, payload: response.data });
   } catch (error) {
     dispatch({ type: types.GOOGLE_LOGIN_FAIL, payload: error.error });

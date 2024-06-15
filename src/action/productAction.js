@@ -76,7 +76,7 @@ const deleteProduct = (id, navigate, setSearchQuery) => async (dispatch) => {
 };
 
 const editProduct =
-  (formData, id, navigate, setSearchQuery) => async (dispatch) => {
+  (formData, id, navigate, setSearchQuery, currentPage) => async (dispatch) => {
     try {
       dispatch({ type: types.PRODUCT_EDIT_REQUEST });
       const response = await api.put(`/product/${id}`, formData);
@@ -88,9 +88,10 @@ const editProduct =
       });
       // console.log('Product edit success:', response.data.data);
       dispatch(commonUiActions.showToastMessage('상품 수정 완료', 'success'));
-      dispatch(getProductList({ page: 1, name: '' }));
-      setSearchQuery({ page: 1, name: '' });
-      navigate('?page=1');
+      dispatch(getProductList({ page: currentPage }));
+      // console.log('현재페이지', currentPage);
+      setSearchQuery({ page: currentPage });
+      navigate(`?page=${currentPage}`);
     } catch (error) {
       dispatch({ type: types.PRODUCT_EDIT_FAIL, payload: error.error });
       dispatch(commonUiActions.showToastMessage(error.error, 'error'));

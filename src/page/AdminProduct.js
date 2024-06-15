@@ -131,6 +131,7 @@ const AdminProduct = () => {
         navigate={navigate}
         // searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
+        currentPage={searchQuery.page}
       />
     </div>
   );

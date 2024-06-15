@@ -24,6 +24,7 @@ const NewItemDialog = ({
   setShowDialog,
   navigate,
   setSearchQuery,
+  currentPage,
 }) => {
   const { selectedProduct, totalPageNum } = useSelector(
     (state) => state.product,
@@ -80,6 +81,7 @@ const NewItemDialog = ({
           selectedProduct._id,
           navigate,
           setSearchQuery,
+          currentPage,
         ),
       );
       setShowDialog(false);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Carousel } from 'react-bootstrap';
+import { ColorRing } from 'react-loader-spinner';
 
 const ImageCarousel = () => {
   const [imagesLoaded, setImagesLoaded] = useState(false);
@@ -58,7 +59,17 @@ const ImageCarousel = () => {
           </Carousel.Item>
         </Carousel>
       ) : (
-        <div>Loading...</div>
+        <div className="center-spinner">
+          <ColorRing
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="blocks-loading"
+            wrapperStyle={{}}
+            wrapperClass="blocks-wrapper"
+            colors={['#779fe0', '#6d7787', '#e1e6ed']}
+          />
+        </div>
       )}
     </div>
   );

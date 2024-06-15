@@ -96,7 +96,7 @@ const ImageCarousel = () => {
   };
 
   return (
-    <div style={{ marginBottom: '20px' }}>
+    <div style={{ marginBottom: '30px' }}>
       {imagesLoaded ? (
         <Carousel
           responsive={responsive}

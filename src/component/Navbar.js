@@ -96,7 +96,9 @@ const Navbar = ({ user }) => {
 
         <div className="side-menu-list" id="menu-list">
           {menuList.map((menu, index) => (
-            <button key={index}>{menu}</button>
+            <button key={index}>
+              <span className="menu-color">{menu}</span>
+            </button>
           ))}
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductCard from '../component/ProductCard';
 import { Row, Col, Container, Carousel } from 'react-bootstrap';
 import { useSearchParams } from 'react-router-dom';
@@ -8,17 +8,40 @@ import { commonUiActions } from '../action/commonUiAction';
 import { TextAlignment } from '@cloudinary/url-gen/qualifiers';
 import { ColorRing } from 'react-loader-spinner';
 import ImageCarousel from '../component/ImageCarousel';
+import Footer from '../component/Footer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowCircleUp } from '@fortawesome/free-solid-svg-icons';
 
 const ProductAll = () => {
   const dispatch = useDispatch();
   const { productList, loading, error } = useSelector((state) => state.product);
   const [searchParams] = useSearchParams();
   const searchTerm = searchParams.get('name') || '';
-
+  const [showScrollTop, setShowScrollTop] = useState(false);
   // 처음 로딩하면 상품리스트 불러오기
   useEffect(() => {
     dispatch(productActions.getProductList({ name: searchTerm }));
   }, [dispatch, searchTerm]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   if (loading) {
     return (
@@ -50,36 +73,6 @@ const ProductAll = () => {
 
   return (
     <Container>
-      {/* <Carousel
-        fade
-        controls={false}
-        indicators={true}
-        pause={false}
-        interval={3000}
-        className="mb-4"
-      >
-        <Carousel.Item>
-          <img
-            className="d-block w-100 carousel-image"
-            src="image/edit2.png"
-            alt="First slide"
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100 carousel-image"
-            src="image/edit3.png"
-            alt="Second slide"
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100 carousel-image"
-            src="image/edit1.png"
-            alt="Third slide"
-          />
-        </Carousel.Item>
-      </Carousel> */}
       <ImageCarousel />
       {searchTerm && productList.length > 0 && (
         <div className="search-results-message">
@@ -93,6 +86,13 @@ const ProductAll = () => {
           </Col>
         ))}
       </Row>
+      <Footer />
+      {/* 스크롤 탑 버튼 */}
+      {showScrollTop && (
+        <button className="scroll-top-button" onClick={scrollTop}>
+          <FontAwesomeIcon icon={faArrowCircleUp} />
+        </button>
+      )}
     </Container>
   );
 };

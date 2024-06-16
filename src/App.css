@@ -218,37 +218,6 @@ body {
   display: none;
 }
 
-@media screen and (max-width: 63rem) {
-  .hide {
-    visibility: visible;
-  }
-  .menu {
-    display: none;
-  }
-
-  .nav-icon:last-child {
-    margin-right: 0px;
-  }
-  .nav-header {
-    margin-top: 20px;
-    margin-bottom: 30px;
-  }
-
-  .sidebar-toggle {
-    display: none;
-  }
-  .mobile-sidebar-toggle {
-    display: block;
-  }
-  .sidebar {
-    max-width: 100%;
-    padding: 0px;
-    /* margin-bottom: 0; */
-  }
-  .mobile-sidebar {
-    max-height: 104px;
-  }
-}
 .display-flex {
   display: flex;
   align-items: center;
@@ -453,6 +422,81 @@ todo 모바일일때 랜딩페이지 카드 다 무너지고 있슈
 
 */
 
+/* footer */
+.footer-area {
+  left: 0;
+  width: 100%;
+  bottom: 0;
+  height: 80px;
+  text-align: center;
+  margin-top: 55px;
+  font-size: 40px;
+  font-family: 'logo-font';
+}
+
+/* 스크롤업 버튼 */
+.scroll-top-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  border: none;
+  color: #6e7883;
+  cursor: pointer;
+  outline: none;
+  z-index: 1000;
+  background: none;
+  font-size: 35px;
+  opacity: 0.8;
+  font-family: 'logo-font';
+}
+
+.scroll-top-button:hover {
+  color: rgb(75, 74, 74);
+}
+/* 
+.scroll-top-button:active {
+  color: #6e7379;
+} */
+/* .menu-color:hover {
+  color: blue !important;
+} */
+
+@media screen and (max-width: 950px) {
+}
+@media screen and (max-width: 63rem) {
+  .hide {
+    visibility: visible;
+  }
+  .menu {
+    display: none;
+  }
+
+  .nav-icon:last-child {
+    margin-right: 0px;
+  }
+  .nav-header {
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+  .sidebar-toggle {
+    display: none;
+  }
+  .mobile-sidebar-toggle {
+    display: block;
+  }
+  .sidebar {
+    max-width: 100%;
+    padding: 0px;
+    /* margin-bottom: 0; */
+  }
+  .mobile-sidebar {
+    max-height: 104px;
+  }
+  .side-bar-logo {
+    font-size: 30px;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .order-info {
     padding-left: 25px;
@@ -471,5 +515,8 @@ todo 모바일일때 랜딩페이지 카드 다 무너지고 있슈
   .carousel-item-padding-40-px img {
     height: 400px;
     object-fit: cover;
+  }
+  .scroll-top-button {
+    font-size: 30px;
   }
 }

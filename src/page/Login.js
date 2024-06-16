@@ -60,7 +60,7 @@ const Login = () => {
             <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
-              placeholder="예) mern@mern.com"
+              placeholder="예) fuzzy@naver.com"
               required
               onChange={(event) => setEmail(event.target.value)}
             />

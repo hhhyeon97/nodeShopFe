@@ -5,6 +5,7 @@ const initialState = {
   productList: [],
   totalPageNum: 1,
   selectedProduct: null,
+  stats: null,
 };
 
 function productReducer(state = initialState, action) {
@@ -14,6 +15,7 @@ function productReducer(state = initialState, action) {
     case types.PRODUCT_GET_REQUEST:
     case types.PRODUCT_EDIT_REQUEST:
     case types.GET_PRODUCT_DETAIL_REQUEST:
+    case types.PRODUCT_STATS_REQUEST:
       return { ...state, loading: true };
     case types.PRODUCT_CREATE_SUCCESS:
     case types.PRODUCT_EDIT_SUCCESS:
@@ -43,6 +45,10 @@ function productReducer(state = initialState, action) {
     case types.SET_SELECTED_PRODUCT:
       return { ...state, selectedProduct: payload };
 
+    case types.PRODUCT_STATS_SUCCESS:
+      return { loading: false, stats: payload, error: null };
+    case types.PRODUCT_STATS_FAIL:
+      return { loading: false, stats: null, error: payload };
     default:
       return state;
   }

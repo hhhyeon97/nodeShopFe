@@ -92,10 +92,29 @@ const editProduct =
     }
   };
 
+const getProductStats = () => async (dispatch) => {
+  try {
+    dispatch({ type: types.PRODUCT_STATS_REQUEST });
+
+    const { data } = await api.get('/product/statistics');
+
+    dispatch({ type: types.PRODUCT_STATS_SUCCESS, payload: data.data });
+  } catch (error) {
+    dispatch({
+      type: types.PRODUCT_STATS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
 export const productActions = {
   getProductList,
   createProduct,
   deleteProduct,
   editProduct,
   getProductDetail,
+  getProductStats,
 };

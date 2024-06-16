@@ -13,6 +13,8 @@ import RegisterPage from '../page/RegisterPage';
 import PrivateRoute from './PrivateRoute';
 import NoticePage from '../page/NoticePage';
 import AdminNotice from '../page/AdminNotice';
+import StatisticsPage from '../page/StatisticsPage';
+import OrdersByDateChart from '../page/OrdersByDateChart';
 
 const AppRouter = () => {
   return (
@@ -23,6 +25,7 @@ const AppRouter = () => {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/product/:id" element={<ProductDetail />} />
       <Route path="/notice" element={<NoticePage />} />
+      <Route path="/order-check" element={<OrdersByDateChart />} />
       <Route element={<PrivateRoute permissionLevel="customer" />}>
         <Route path="/cart" element={<CartPage />} />
         <Route path="/payment" element={<PaymentPage />} />

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../component/ProductCard';
 import { Row, Col, Container, Carousel } from 'react-bootstrap';
-import { useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { productActions } from '../action/productAction';
 import { commonUiActions } from '../action/commonUiAction';
@@ -16,12 +16,32 @@ const ProductAll = () => {
   const dispatch = useDispatch();
   const { productList, loading, error } = useSelector((state) => state.product);
   const [searchParams] = useSearchParams();
+  const { category } = useParams();
   const searchTerm = searchParams.get('name') || '';
   const [showScrollTop, setShowScrollTop] = useState(false);
   // 처음 로딩하면 상품리스트 불러오기
+  // useEffect(() => {
+  //   dispatch(productActions.getProductList({ name: searchTerm }));
+  // }, [dispatch, searchTerm]);
+
+  // useEffect(() => {
+  //   const params = { name: searchTerm };
+  //   if (category) {
+  //     params.category = category;
+  //   }
+  //   dispatch(productActions.getProductList(params));
+  // }, [dispatch, searchTerm, category]);
+
   useEffect(() => {
-    dispatch(productActions.getProductList({ name: searchTerm }));
-  }, [dispatch, searchTerm]);
+    const params = {};
+    if (searchTerm) {
+      params.name = searchTerm;
+    }
+    if (category) {
+      params.category = category;
+    }
+    dispatch(productActions.getProductList(params));
+  }, [dispatch, searchTerm, category]);
 
   useEffect(() => {
     const handleScroll = () => {

@@ -64,6 +64,8 @@ const Navbar = ({ user }) => {
   const handleNavigate = (menu) => {
     if (menu === 'NOTICE') {
       navigate('/notice');
+    } else {
+      navigate(`/${menu.toLowerCase()}`);
     }
   };
 

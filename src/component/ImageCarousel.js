@@ -55,7 +55,7 @@ const CustomRightArrow = ({ onClick }) => {
 
 const ImageCarousel = () => {
   const [imagesLoaded, setImagesLoaded] = useState(false);
-  const images = ['image/edit2.png', 'image/edit3.png', 'image/edit1.png'];
+  const images = ['image/edit2.png', 'image/edit4.jpg', 'image/edit1.png'];
 
   useEffect(() => {
     const preloadImages = () => {

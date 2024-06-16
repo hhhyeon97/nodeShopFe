@@ -42,13 +42,7 @@ const createProduct =
       dispatch({ type: types.PRODUCT_CREATE_SUCCESS });
       dispatch(commonUiActions.showToastMessage('상품 생성 완료', 'success'));
       const { totalPageNum } = response.data;
-      // console('test==============1');
       dispatch(getProductList({ page: totalPageNum, name: '' }));
-      // console('test==============2');
-      // navigate(`?page=${totalPageNum}`);
-      // console('test==============3');
-      // setSearchQuery({ page: totalPageNum, name: '' });
-      // console('test==============4');
       setSearchQuery({ page: totalPageNum, name: '' });
       navigate(`?page=${totalPageNum}`);
     } catch (error) {

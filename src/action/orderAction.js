@@ -77,9 +77,23 @@ export const resetOrder = () => ({
   type: types.ORDER_RESET,
 });
 
+const fetchOrders = () => async (dispatch) => {
+  try {
+    const response = await api.get('/order/orders-by-date');
+    dispatch({
+      type: types.FETCH_ORDERS_SUCCESS,
+      payload: response.data.data.ordersByDate,
+    });
+    console.log('test', response);
+  } catch (error) {
+    dispatch({ type: types.FETCH_ORDERS_FAILURE, error: error });
+  }
+};
+
 export const orderActions = {
   createOrder,
   getOrder,
   getOrderList,
   updateOrder,
+  fetchOrders,
 };

@@ -8,6 +8,7 @@ const initialState = {
   totalPageNum: 1,
   selectedOrder: {},
   userOrderList: [],
+  orders: [],
 };
 
 function orderReducer(state = initialState, action) {
@@ -41,6 +42,21 @@ function orderReducer(state = initialState, action) {
       return { ...state, selectedOrder: payload };
     case types.ORDER_RESET:
       return { userOrderList: [] };
+    //============================
+    case types.FETCH_ORDERS_SUCCESS:
+      return {
+        ...state,
+        orders: payload,
+        loading: false,
+        error: '',
+      };
+    case types.FETCH_ORDERS_FAILURE:
+      return {
+        ...state,
+        orders: [],
+        loading: false,
+        error: payload,
+      };
     default:
       return state;
   }

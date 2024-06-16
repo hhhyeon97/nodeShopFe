@@ -91,9 +91,9 @@ const AdminProduct = () => {
             field="name"
           />
         </div>
-        <Button className="mt-2 mb-2" onClick={handleClickNewItem}>
-          Add New Item +
-        </Button>
+        <button className="mt-2 mb-2 custom-btn" onClick={handleClickNewItem}>
+          상품 등록
+        </button>
 
         <ProductTable
           header={tableHeader}

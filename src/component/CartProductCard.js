@@ -23,7 +23,11 @@ const CartProductCard = ({ item }) => {
     <div className="product-card-cart">
       <Row>
         <Col md={2} xs={12}>
-          <img src={item.productId.image} width={112} />
+          <img
+            src={item.productId.image}
+            width={112}
+            style={{ borderRadius: '5px' }}
+          />
         </Col>
         <Col
           md={10}
@@ -32,9 +36,9 @@ const CartProductCard = ({ item }) => {
           style={{ paddingLeft: '25px' }}
         >
           <div className="display-flex space-between">
-            <h3>
+            <h4 style={{ fontSize: '20px' }}>
               <strong>{item.productId.name}</strong>
-            </h3>
+            </h4>
             <button
               className="trash-button"
               style={{ border: 'none', background: 'none' }}
@@ -47,7 +51,7 @@ const CartProductCard = ({ item }) => {
             </button>
           </div>
 
-          <div>
+          <div style={{ color: 'gray' }}>
             <strong>
               {item.productId.price.toLocaleString('ko-KR') + '원'}
             </strong>
@@ -55,7 +59,9 @@ const CartProductCard = ({ item }) => {
           <div>사이즈 {item.size.toUpperCase()} </div>
           <div>
             총 금액{' '}
-            {(item.productId.price * item.qty).toLocaleString('ko-KR') + '원'}
+            <strong>
+              {(item.productId.price * item.qty).toLocaleString('ko-KR') + '원'}
+            </strong>
           </div>
           <div>
             수량

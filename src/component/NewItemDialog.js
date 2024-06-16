@@ -218,9 +218,9 @@ const NewItemDialog = ({
           {stockError && (
             <span className="error-message">재고를 추가해주세요</span>
           )}
-          <Button size="sm" onClick={addStock}>
-            Add +
-          </Button>
+          <button className="custom-btn" size="sm" onClick={addStock}>
+            추가
+          </button>
           <div className="mt-2">
             {stock.map((item, index) => (
               // key 값을 index - > 고유값으로 변경
@@ -280,6 +280,7 @@ const NewItemDialog = ({
           <CloudinaryUploadWidget uploadImage={uploadImage} />
 
           <img
+            style={{ marginLeft: '5px', marginBottom: '5px' }}
             id="uploadedimage"
             src={formData.image}
             className="upload-image mt-2"
@@ -296,6 +297,7 @@ const NewItemDialog = ({
               onChange={handleChange}
               type="number"
               placeholder="0"
+              min={100}
             />
           </Form.Group>
 
@@ -332,13 +334,13 @@ const NewItemDialog = ({
           </Form.Group>
         </Row>
         {mode === 'new' ? (
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
+          <button className="custom-btn" type="submit">
+            등록
+          </button>
         ) : (
-          <Button variant="primary" type="submit">
-            Edit
-          </Button>
+          <button className="custom-btn" type="submit">
+            수정
+          </button>
         )}
       </Form>
     </Modal>

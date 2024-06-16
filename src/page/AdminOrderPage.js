@@ -78,7 +78,17 @@ const AdminOrderPage = () => {
             openEditForm={openEditForm}
           />
         )}
-        {orderList.length === 0 && <p>No orders available.</p>}
+        {orderList.length === 0 && (
+          <p
+            style={{
+              textAlign: 'center',
+              marginTop: '30px',
+              marginBottom: '30px',
+            }}
+          >
+            해당하는 주문 내역이 없습니다.
+          </p>
+        )}
 
         <ReactPaginate
           nextLabel=">"

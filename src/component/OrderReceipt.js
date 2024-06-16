@@ -9,8 +9,8 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="receipt-container">
-      <h3 className="receipt-title">주문 내역</h3>
+    <div className="receipt-container" style={{ borderRadius: '6px' }}>
+      <h4 className="receipt-title">주문 내역</h4>
       <ul className="receipt-list">
         {cartList.length > 0 &&
           cartList.map((item) => (

@@ -48,9 +48,13 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
                   >
                     -
                   </Button>
-                  <Button size="sm" onClick={() => openEditForm(item)}>
-                    Edit
-                  </Button>
+                  <button
+                    size="sm"
+                    className="custom-btn"
+                    onClick={() => openEditForm(item)}
+                  >
+                    수정
+                  </button>
                 </th>
               </tr>
             ))

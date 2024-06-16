@@ -76,14 +76,18 @@ const OrderDetailDialog = ({
                   <tr key={item._id}>
                     <td>{item._id}</td>
                     <td>{item.productId.name}</td>
-                    <td>{currencyFormat(item.price)}</td>
+                    <td>{item.price.toLocaleString('ko-KR') + '원'}</td>
                     <td>{item.qty}</td>
-                    <td>{currencyFormat(item.price * item.qty)}</td>
+                    <td>
+                      {(item.price * item.qty).toLocaleString('ko-KR') + '원'}
+                    </td>
                   </tr>
                 ))}
               <tr>
                 <td colSpan={4}>총계:</td>
-                <td>{currencyFormat(selectedOrder.totalPrice)}</td>
+                <td>
+                  {selectedOrder.totalPrice.toLocaleString('ko-KR') + '원'}
+                </td>
               </tr>
             </tbody>
           </Table>
@@ -107,7 +111,9 @@ const OrderDetailDialog = ({
             >
               닫기
             </Button>
-            <Button type="submit">저장</Button>
+            <button className="custom-btn" type="submit">
+              저장
+            </button>
           </div>
         </Form>
       </Modal.Body>

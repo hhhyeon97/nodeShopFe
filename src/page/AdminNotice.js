@@ -27,9 +27,9 @@ const AdminNotice = () => {
 
   return (
     <Container>
-      <Button className="mt-2 mb-2" onClick={handleClickNewNotice}>
-        Add New Notice +
-      </Button>
+      <button className="mt-2 mb-2 custom-btn" onClick={handleClickNewNotice}>
+        공지 작성
+      </button>
 
       {/* {notices.length === 0 ? (
         <div>No notices found.</div> // 데이터가 없을 때 보여줄 메시지

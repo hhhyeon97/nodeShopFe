@@ -52,6 +52,7 @@ const Sidebar = () => {
           <h1 className="side-bar-logo">*fuzzy​*</h1>
           <Navbar.Brand href="#"></Navbar.Brand>
           <Navbar.Toggle
+            style={{ marginRight: '15px' }}
             aria-controls={`offcanvasNavbar-expand`}
             onClick={() => setShow(true)}
           />

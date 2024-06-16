@@ -61,7 +61,7 @@ const RegisterPage = () => {
   }, [dispatch]);
 
   return (
-    <Container className="register-area">
+    <Container className="register-area mb-5">
       {error && (
         <div>
           <Alert variant="danger" className="error-message">
@@ -124,9 +124,9 @@ const RegisterPage = () => {
             checked={formData.policy}
           />
         </Form.Group>
-        <Button variant="danger" type="submit">
+        <button type="submit" className="custom-btn">
           회원가입
-        </Button>
+        </button>
       </Form>
     </Container>
   );

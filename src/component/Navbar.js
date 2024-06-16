@@ -72,7 +72,7 @@ const Navbar = ({ user }) => {
       {showSearchBox && (
         <div className="display-space-between mobile-search-box w-100">
           <div className="search display-space-between w-100">
-            <div>
+            <div className="search-area">
               <FontAwesomeIcon className="search-icon" icon={faSearch} />
               <input
                 type="text"

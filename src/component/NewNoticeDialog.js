@@ -68,10 +68,10 @@ const NewNoticeDialog = ({ showDialog, setShowDialog }) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" type="submit">
+          <button className="custom-btn" type="submit">
             {/* {mode === 'new' ? 'Create' : 'Save changes'} */}
-            Save
-          </Button>
+            등록
+          </button>
         </Modal.Footer>
       </Form>
     </Modal>

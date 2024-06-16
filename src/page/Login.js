@@ -76,9 +76,9 @@ const Login = () => {
             />
           </Form.Group>
           <div className="display-space-between login-button-area">
-            <Button variant="danger" type="submit">
-              Login
-            </Button>
+            <button type="submit" className="custom-btn">
+              로그인
+            </button>
             <div>
               아직 계정이 없으세요? <Link to="/register">회원가입 하기</Link>{' '}
             </div>

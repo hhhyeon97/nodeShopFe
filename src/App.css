@@ -546,6 +546,18 @@ todo 모바일일때 랜딩페이지 카드 다 무너지고 있슈
   .scroll-top-button {
     font-size: 30px;
   }
+  .mobile-search-box .closebtn {
+    font-size: 20px;
+    padding-top: 10px;
+    position: relative;
+    bottom: 4px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .carousel-item-padding-40-px img {
+    height: 300px;
+  }
 }
 
 /* 주문집계 */

@@ -56,6 +56,24 @@ const loginWithGoogle = (token) => async (dispatch) => {
   }
 };
 
+const loginWithKakao = (token) => async (dispatch) => {
+  try {
+    dispatch({ type: types.KAKAO_LOGIN_REQUEST });
+    console.log('test 1');
+    const response = await api.post('/auth/kakao', { token });
+    console.log('test 2');
+    if (response.status !== 200) throw new Error(response.error);
+    console.log('test 3');
+    localStorage.setItem('token', response.data.token);
+    dispatch({ type: types.KAKAO_LOGIN_SUCCESS, payload: response.data });
+  } catch (error) {
+    dispatch({
+      type: types.KAKAO_LOGIN_FAIL,
+      payload: error.error,
+    });
+  }
+};
+
 const registerUser =
   ({ email, name, password }, navigate) =>
   async (dispatch) => {
@@ -88,4 +106,5 @@ export const userActions = {
   loginWithGoogle,
   registerUser,
   resetError,
+  loginWithKakao,
 };

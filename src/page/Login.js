@@ -6,6 +6,9 @@ import { userActions } from '../action/userAction';
 import { GoogleLogin } from '@react-oauth/google';
 
 import '../style/login.style.css';
+import { faComment } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import SocialKakao from '../component/SocialKakao';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -14,6 +17,11 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const error = useSelector((state) => state.user.error);
+  // Kakao API 관련 설정
+  const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+  const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+
+  const kakaoTokenUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`;
 
   useEffect(() => {
     dispatch(userActions.resetError()); // 마운트 시 에러 리셋
@@ -28,6 +36,15 @@ const Login = () => {
   const handleGoogleLogin = async (googleData) => {
     // 구글로 로그인 하기
     dispatch(userActions.loginWithGoogle(googleData.credential));
+  };
+
+  // const handleKakaoLogin = () => {
+  //   window.location.href = kakaoTokenUrl;
+  // };
+
+  // 카카오 로그인 액션에 카카오 데이터 보내기 !
+  const handleKakaoLogin = async (kakaoData) => {
+    dispatch(userActions.loginWithKakao(kakaoData));
   };
 
   // useEffect(() => {
@@ -99,6 +116,15 @@ const Login = () => {
             */}
               <GoogleLogin
                 onSuccess={handleGoogleLogin}
+                onError={() => {
+                  console.log('Login Failed');
+                }}
+              />
+              {/* <button className="custom_kakao_btn" onClick={handleKakaoLogin}>
+                <FontAwesomeIcon icon={faComment} className="kakao_icon" />
+              </button> */}
+              <SocialKakao
+                onSuccess={handleKakaoLogin}
                 onError={() => {
                   console.log('Login Failed');
                 }}

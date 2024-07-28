@@ -41,7 +41,7 @@ const PaymentPage = () => {
     const { firstName, lastName, contact, address, city, zip } = shipInfo;
     // console.log('cartList',cartList);
     const data = {
-      totalPrice,
+      totalPrice: totalPrice / 2,
       shipTo: { address, city, zip },
       contact: { firstName, lastName, contact },
       orderList: cartList.map((item) => {

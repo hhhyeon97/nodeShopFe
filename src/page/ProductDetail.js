@@ -96,7 +96,12 @@ const ProductDetail = () => {
             {selectedProduct.name}
           </div>
           <div className="product-info">
-            {selectedProduct.price.toLocaleString() + '원'}
+            <span className="original-price">
+              {selectedProduct.price.toLocaleString() + '원'}
+            </span>
+            <span className="sale-info">
+              {(selectedProduct.price / 2).toLocaleString() + '원'}
+            </span>
           </div>
           <div className="product-info">{selectedProduct.description}</div>
           <Dropdown

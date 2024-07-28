@@ -53,14 +53,21 @@ const CartProductCard = ({ item }) => {
 
           <div style={{ color: 'gray' }}>
             <strong>
-              {item.productId.price.toLocaleString('ko-KR') + '원'}
+              <span
+                className="original-price"
+                style={{ color: 'lightgray', marginRight: '5px' }}
+              >
+                {item.productId.price.toLocaleString('ko-KR') + '원'}
+              </span>
+              {(item.productId.price / 2).toLocaleString('ko-KR') + '원'}
             </strong>
           </div>
           <div>사이즈 {item.size.toUpperCase()} </div>
           <div>
             총 금액{' '}
             <strong>
-              {(item.productId.price * item.qty).toLocaleString('ko-KR') + '원'}
+              {((item.productId.price / 2) * item.qty).toLocaleString('ko-KR') +
+                '원'}
             </strong>
           </div>
           <div>

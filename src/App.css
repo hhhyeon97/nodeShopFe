@@ -467,6 +467,17 @@ body {
   border-radius: 10px;
 }
 
+/* detail page */
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+}
+.original-price {
+  text-decoration: line-through;
+  color: rgba(128, 161, 221, 0.8);
+}
+
 /* ================= 
 todo 모바일일때 랜딩페이지 카드 다 무너지고 있슈
 

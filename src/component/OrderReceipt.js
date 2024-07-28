@@ -21,8 +21,9 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
                 </div>
 
                 <div>
-                  {(item.productId.price * item.qty).toLocaleString('ko-KR') +
-                    '원'}
+                  {((item.productId.price / 2) * item.qty).toLocaleString(
+                    'ko-KR',
+                  ) + '원'}
                 </div>
               </div>
             </li>
@@ -33,7 +34,7 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
           <strong>Total:</strong>
         </div>
         <div>
-          <strong>{totalPrice.toLocaleString('ko-KR') + '원'}</strong>
+          <strong>{(totalPrice / 2).toLocaleString('ko-KR') + '원'}</strong>
         </div>
       </div>
       {location.pathname.includes('/cart') && cartList.length > 0 && (

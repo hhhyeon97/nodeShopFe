@@ -63,9 +63,10 @@ const OrderDetailDialog = ({
           <Table>
             <thead>
               <tr>
-                <th>ID</th>
+                {/* <th>ID</th> */}
                 <th>Name</th>
                 <th>Unit Price</th>
+                <th>Discount Price</th>
                 <th>Qty</th>
                 <th>Price</th>
               </tr>
@@ -74,12 +75,14 @@ const OrderDetailDialog = ({
               {selectedOrder.items.length > 0 &&
                 selectedOrder.items.map((item) => (
                   <tr key={item._id}>
-                    <td>{item._id}</td>
+                    {/* <td>{item._id}</td> */}
                     <td>{item.productId.name}</td>
                     <td>{item.price.toLocaleString('ko-KR') + '원'}</td>
+                    <th>{(item.price / 2).toLocaleString('ko-KR') + '원'}</th>
                     <td>{item.qty}</td>
                     <td>
-                      {(item.price * item.qty).toLocaleString('ko-KR') + '원'}
+                      {((item.price * item.qty) / 2).toLocaleString('ko-KR') +
+                        '원'}
                     </td>
                   </tr>
                 ))}

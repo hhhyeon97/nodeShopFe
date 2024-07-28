@@ -26,7 +26,13 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
                 <th>{index}</th>
                 <th>{item.sku}</th>
                 <th style={{ minWidth: '100px' }}>{item.name}</th>
-                <th>{item.price.toLocaleString('ko-KR') + '원'}</th>
+                <th>
+                  {item.price.toLocaleString('ko-KR') + '원'}
+                  <div style={{ color: '#8aaceb' }}>
+                    Sale : 50% →{' '}
+                    {(item.price / 2).toLocaleString('ko-KR') + '원'}
+                  </div>
+                </th>
                 <th>
                   {Object.keys(item.stock).map((size, index) => (
                     <div key={index}>
@@ -44,7 +50,7 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
                     variant="danger"
                     // onClick={() => deleteItem(item._id)}
                     onClick={() => handleDelete(item._id, item.name)}
-                    className="mr-1"
+                    className="mr-1 mb-1"
                   >
                     -
                   </Button>

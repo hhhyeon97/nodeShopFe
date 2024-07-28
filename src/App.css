@@ -96,11 +96,6 @@ body {
   padding-right: 30px;
 }
 
-.card {
-  border: none !important;
-  margin-bottom: 10px;
-}
-
 .choice {
   font-size: 11px;
   color: #63786a;
@@ -333,6 +328,24 @@ body {
 }
 
 /* 랜딩페이지 상품카드 */
+
+/*
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px; /* 카드 간격
+}
+*/
+/*
+.card {
+  margin-bottom: 10px;
+  flex: 1 1 calc(25% - 16px); /* 기본적으로 4개씩 표시
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+*/
 .card {
   position: relative;
   overflow: hidden;
@@ -341,7 +354,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  border: none !important;
 }
+
 .card img {
   width: 100%;
   height: 330px;
@@ -478,11 +493,6 @@ body {
   color: rgba(128, 161, 221, 0.8);
 }
 
-/* ================= 
-todo 모바일일때 랜딩페이지 카드 다 무너지고 있슈
-
-*/
-
 /* footer */
 .footer-area {
   left: 0;
@@ -522,8 +532,7 @@ todo 모바일일때 랜딩페이지 카드 다 무너지고 있슈
   color: blue !important;
 } */
 
-@media screen and (max-width: 950px) {
-}
+/* 1008 px*/
 @media screen and (max-width: 63rem) {
   .hide {
     visibility: visible;
@@ -561,24 +570,22 @@ todo 모바일일때 랜딩페이지 카드 다 무너지고 있슈
   }
 }
 
+@media screen and (max-width: 768px) {
+}
+
 @media screen and (max-width: 600px) {
   .order-info {
     padding-left: 25px;
   }
-  /* .carousel-image {
-    height: 400px;
-    object-fit: cover;
-  } */
-
   .card:hover {
     transform: none;
   }
-
   .carousel-item-padding-40-px img {
     height: 400px;
     object-fit: cover;
   }
   .scroll-top-button {
+    right: 15px;
     font-size: 30px;
   }
   .mobile-search-box .closebtn {
@@ -586,6 +593,20 @@ todo 모바일일때 랜딩페이지 카드 다 무너지고 있슈
     padding-top: 10px;
     position: relative;
     bottom: 4px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .card {
+    align-items: center;
+  }
+  .card img {
+    width: 70%;
+    height: 300px;
+    margin: 5px auto;
+  }
+  .sold-out-badge {
+    left: 14.5%;
   }
 }
 

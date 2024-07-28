@@ -99,9 +99,9 @@ const ProductAll = () => {
           총 {productList.length} 개의 상품이 검색 되었습니다.
         </div>
       )}
-      <Row>
+      <Row className="card-container">
         {productList.map((product) => (
-          <Col key={product._id} md={3} sm={12} className="mt-3">
+          <Col key={product._id} md={3} sm={6} className="mt-3">
             <ProductCard product={product} />
           </Col>
         ))}

@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../style/paymentPage.style.css';
+import JSConfetti from 'js-confetti';
 
 const OrderCompletePage = () => {
   const { orderNum } = useSelector((state) => state.order);
+
+  useEffect(() => {
+    // 주문번호가 존재할 때만 컨페티 효과 적용하기
+    if (orderNum !== '') {
+      const jsConfetti = new JSConfetti();
+
+      jsConfetti.addConfetti({
+        // emojis: ['🤗', '🥨', '👕', '👖', '🧦'],
+        emojiSize: 50,
+        confettiNumber: 70,
+      });
+    }
+  }, [orderNum]);
+
   //만약 주문번호가 없는상태로 이페이지에 왔다면
   // 다시 메인페이지로 돌아가기
   if (orderNum === '') {
@@ -21,8 +36,8 @@ const OrderCompletePage = () => {
   return (
     <Container className="confirmation-page">
       <img
-        src="/image/greenCheck.png"
-        width={100}
+        src="/image/check.png"
+        width={120}
         className="check-image"
         alt="greenCheck.png"
       />

@@ -66,7 +66,7 @@ const Login = () => {
 
   return (
     <>
-      <Container className="login-area">
+      <Container className="login-area mt-5 mb-5">
         {error && (
           <div className="error-message">
             <Alert variant="danger">{error}</Alert>
@@ -103,7 +103,7 @@ const Login = () => {
 
           <div className="text-align-center mt-2">
             <p>- 간편 로그인 -</p>
-            <div className="display-center">
+            <div className="social-area">
               {/*
               1. 구글 로그인 버튼 가져오기
               2. Oauth로그인을 위해서 google api 사이트에 가입하고

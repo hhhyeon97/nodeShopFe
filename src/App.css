@@ -443,6 +443,30 @@ body {
   background-color: #585858;
 }
 
+.social-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.kakao_btn {
+  background: none;
+  border: none;
+}
+.kakao_btn_img {
+  object-fit: cover;
+  width: 200px;
+  height: 38px;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+/* cart */
+
+.product-card-cart {
+  border: 1px solid rgb(66, 66, 66);
+  border-radius: 10px;
+}
+
 /* ================= 
 todo 모바일일때 랜딩페이지 카드 다 무너지고 있슈
 

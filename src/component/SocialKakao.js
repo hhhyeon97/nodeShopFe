@@ -30,8 +30,8 @@ const SocialKakao = () => {
   };
 
   return (
-    <button className="custom_kakao_btn" onClick={handleKakaoLogin}>
-      <FontAwesomeIcon icon={faComment} className="kakao_icon" />
+    <button className="kakao_btn" onClick={handleKakaoLogin}>
+      <img src="kakao_btn.png" alt="kakao" className="kakao_btn_img" />
     </button>
   );
 };

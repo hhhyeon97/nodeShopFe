@@ -54,6 +54,9 @@ const ProductDetail = () => {
 
   useEffect(() => {
     dispatch(productActions.getProductDetail(id));
+
+    // 페이지가 로드될 때 스크롤을 맨 위로 이동
+    window.scrollTo(0, 0);
   }, [dispatch, id]);
 
   if (loading) {

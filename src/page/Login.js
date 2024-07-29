@@ -38,13 +38,14 @@ const Login = () => {
     dispatch(userActions.loginWithGoogle(googleData.credential));
   };
 
-  // const handleKakaoLogin = () => {
-  //   window.location.href = kakaoTokenUrl;
-  // };
-
   // 카카오 로그인 액션에 카카오 데이터 보내기 !
   const handleKakaoLogin = async (kakaoData) => {
     dispatch(userActions.loginWithKakao(kakaoData));
+  };
+
+  // 카카오 로그인2 rest api 방식 시도
+  const handleKakaoLogin2 = () => {
+    window.location.href = kakaoTokenUrl;
   };
 
   // useEffect(() => {
@@ -129,6 +130,9 @@ const Login = () => {
                   console.log('Login Failed');
                 }}
               />
+              <button className="custom_kakao_btn" onClick={handleKakaoLogin2}>
+                카카오 로그인2 rest api 방식
+              </button>
             </div>
           </div>
         </Form>

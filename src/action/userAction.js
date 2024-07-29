@@ -74,6 +74,25 @@ const loginWithKakao = (token) => async (dispatch) => {
   }
 };
 
+const loginWithKakao2 = (code) => async (dispatch) => {
+  try {
+    dispatch({ type: types.KAKAO_LOGIN_REQUEST });
+
+    // 인가 코드를 백엔드로 전송
+    const response = await api.get(`/auth/kakao/callback?code=${code}`);
+
+    if (response.status !== 200) throw new Error(response.error);
+
+    localStorage.setItem('token', response.data.token);
+    dispatch({ type: types.KAKAO_LOGIN_SUCCESS, payload: response.data });
+  } catch (error) {
+    dispatch({
+      type: types.KAKAO_LOGIN_FAIL,
+      payload: error.error,
+    });
+  }
+};
+
 const registerUser =
   ({ email, name, password }, navigate) =>
   async (dispatch) => {
@@ -107,4 +126,5 @@ export const userActions = {
   registerUser,
   resetError,
   loginWithKakao,
+  loginWithKakao2,
 };

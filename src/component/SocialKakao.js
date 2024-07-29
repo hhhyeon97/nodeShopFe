@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 import KakaoLogin from 'react-kakao-login';
 import { userActions } from '../action/userAction';
 import { useDispatch } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment } from '@fortawesome/free-solid-svg-icons';
 
 const SocialKakao = () => {
   const dispatch = useDispatch();

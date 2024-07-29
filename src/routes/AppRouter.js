@@ -28,7 +28,7 @@ const AppRouter = () => {
       <Route path="/product/:id" element={<ProductDetail />} />
       <Route path="/notice" element={<NoticePage />} />
       <Route path="/order-check" element={<OrdersByDateTable />} />
-      <Route path="/api/auth/kakao/callback" element={<KakaoCallback />} />
+      <Route path="/kakao/callback" element={<KakaoCallback />} />
       <Route element={<PrivateRoute permissionLevel="customer" />}>
         <Route path="/cart" element={<CartPage />} />
         <Route path="/payment" element={<PaymentPage />} />

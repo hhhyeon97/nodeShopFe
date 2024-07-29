@@ -1,2 +1,2 @@
-/api/* http://node-shop.ap-northeast-2.elasticbeanstalk.com/api/:splat 200
+/api/* https://port-0-nodeshopbe-lxzr0r7ve38740ea.sel5.cloudtype.app/api/:splat 200
 /*      /index.html  200

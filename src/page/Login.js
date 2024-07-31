@@ -8,7 +8,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import '../style/login.style.css';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import SocialKakao from '../component/SocialKakao';
+// import SocialKakao from '../component/SocialKakao';
 import RandomStringUtil from '../utils/RandomStringUtil';
 
 const Login = () => {
@@ -59,17 +59,7 @@ const Login = () => {
     window.location.href = naverTokenUrl;
   };
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem('token');
-  //   if (token) {
-  //     dispatch(userActions.loginWithToken());
-  //   }
-  // }, [dispatch]);
-
   // 이미 로그인한 유저 로그인페이지 이동 방지
-  // if (user) {
-  //   navigate('/');
-  // }
   useEffect(() => {
     if (user) {
       navigate('/');
@@ -132,29 +122,26 @@ const Login = () => {
                   console.log('Login Failed');
                 }}
               />
-              <SocialKakao
+              {/* sdk 방식 */}
+              {/* <SocialKakao
                 onSuccess={handleKakaoLogin}
                 onError={() => {
                   console.log('Login Failed');
                 }}
-              />
-              <button className="custom_kakao_btn" onClick={handleKakaoLogin2}>
-                카카오 로그인2 rest api 방식
+              /> */}
+              <button className="kakao_btn" onClick={handleKakaoLogin2}>
+                <img
+                  src="kakao_btn.png"
+                  alt="kakao"
+                  className="kakao_btn_img"
+                />
               </button>
-              <button onClick={handleNaverLogin} className="custom_naver_btn">
-                <svg
-                  role="img"
-                  viewBox="0 0 24 24"
-                  width={18}
-                  height={18}
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <title>Naver</title>
-                  <path
-                    fill="#03C75A"
-                    d="M16.273 12.845 7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845Z"
-                  />
-                </svg>
+              <button onClick={handleNaverLogin} className="naver_btn">
+                <img
+                  src="naver_btn.png"
+                  alt="naver"
+                  className="naver_btn_img"
+                />
               </button>
             </div>
           </div>

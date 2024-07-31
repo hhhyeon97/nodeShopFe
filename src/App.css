@@ -463,16 +463,22 @@ body {
   flex-direction: column;
   align-items: center;
 }
-.kakao_btn {
+.kakao_btn,
+.naver_btn {
   background: none;
   border: none;
 }
-.kakao_btn_img {
+.kakao_btn_img,
+.naver_btn_img {
   object-fit: cover;
   width: 200px;
   height: 38px;
   border-radius: 4px;
   margin-top: 10px;
+}
+
+.naver_btn_img {
+  border: 1px solid lightgray;
 }
 
 /* cart */

@@ -17,6 +17,7 @@ import StatisticsPage from '../page/StatisticsPage';
 import OrdersByDateChart from '../page/OrdersByDateChart';
 import OrdersByDateTable from '../component/OrdersByDateTable';
 import KakaoCallback from '../page/KakaoCallback';
+import NaverCallback from '../page/NaverCallback';
 
 const AppRouter = () => {
   return (
@@ -29,6 +30,7 @@ const AppRouter = () => {
       <Route path="/notice" element={<NoticePage />} />
       <Route path="/order-check" element={<OrdersByDateTable />} />
       <Route path="/kakao/callback" element={<KakaoCallback />} />
+      <Route path="/naver/callback" element={<NaverCallback />} />
       <Route element={<PrivateRoute permissionLevel="customer" />}>
         <Route path="/cart" element={<CartPage />} />
         <Route path="/payment" element={<PaymentPage />} />

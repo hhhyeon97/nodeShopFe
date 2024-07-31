@@ -9,6 +9,7 @@ import '../style/login.style.css';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SocialKakao from '../component/SocialKakao';
+import RandomStringUtil from '../utils/RandomStringUtil';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -17,11 +18,15 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const error = useSelector((state) => state.user.error);
-  // Kakao API 관련 설정
+  // Kakao API 관련
   const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
   const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 
   const kakaoTokenUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`;
+
+  // naver api 관련
+  const NAVER_CLIENT_ID = process.env.REACT_APP_NAVER_CLIENT_ID;
+  const NAVER_REDIRECT_URI = process.env.REACT_APP_NAVER_REDIRECT_URI;
 
   useEffect(() => {
     dispatch(userActions.resetError()); // 마운트 시 에러 리셋
@@ -46,6 +51,12 @@ const Login = () => {
   // 카카오 로그인2 rest api 방식 시도
   const handleKakaoLogin2 = () => {
     window.location.href = kakaoTokenUrl;
+  };
+  // 네이버
+  const handleNaverLogin = () => {
+    const state = RandomStringUtil.generateRandomString(10);
+    const naverTokenUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_REDIRECT_URI}&state=${state}`;
+    window.location.href = naverTokenUrl;
   };
 
   // useEffect(() => {
@@ -121,9 +132,6 @@ const Login = () => {
                   console.log('Login Failed');
                 }}
               />
-              {/* <button className="custom_kakao_btn" onClick={handleKakaoLogin}>
-                <FontAwesomeIcon icon={faComment} className="kakao_icon" />
-              </button> */}
               <SocialKakao
                 onSuccess={handleKakaoLogin}
                 onError={() => {
@@ -132,6 +140,21 @@ const Login = () => {
               />
               <button className="custom_kakao_btn" onClick={handleKakaoLogin2}>
                 카카오 로그인2 rest api 방식
+              </button>
+              <button onClick={handleNaverLogin} className="custom_naver_btn">
+                <svg
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width={18}
+                  height={18}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <title>Naver</title>
+                  <path
+                    fill="#03C75A"
+                    d="M16.273 12.845 7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845Z"
+                  />
+                </svg>
               </button>
             </div>
           </div>

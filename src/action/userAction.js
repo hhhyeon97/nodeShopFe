@@ -93,6 +93,21 @@ const loginWithKakao2 = (code) => async (dispatch) => {
   }
 };
 
+const loginWithNaver = (code, state) => async (dispatch) => {
+  try {
+    dispatch({ type: types.NAVER_LOGIN_REQUEST });
+    // 네이버는 code, state를 보내주어야 함 !!
+    const response = await api.get(
+      `/auth/naver/callback?code=${code}&state=${state}`,
+    );
+    if (response.status !== 200) throw new Error(response.error);
+    localStorage.setItem('token', response.data.token);
+    dispatch({ type: types.NAVER_LOGIN_SUCCESS, payload: response.data });
+  } catch (error) {
+    dispatch({ type: types.NAVER_LOGIN_FAIL, payload: error.error });
+  }
+};
+
 const registerUser =
   ({ email, name, password }, navigate) =>
   async (dispatch) => {
@@ -127,4 +142,5 @@ export const userActions = {
   resetError,
   loginWithKakao,
   loginWithKakao2,
+  loginWithNaver,
 };

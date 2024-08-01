@@ -155,14 +155,26 @@ export const resetError = () => ({
   type: types.RESET_ERROR,
 });
 
-const refreshToken = async () => {
+// ! 업데이트(리프레시토큰 통해서 어세스토큰 재발급 요청)
+export const refreshToken = () => async (dispatch) => {
   try {
+    console.log('please......1');
     const response = await api.post('/auth/refresh-token', {
       refreshToken: localStorage.getItem('refreshToken'),
     });
-    return response.data.accessToken;
+    if (response.status !== 200) throw new Error(response.error);
+    localStorage.setItem('token', response.data.accessToken);
+    dispatch({
+      type: types.REFRESH_TOKEN_SUCCESS,
+      payload: response.data,
+    });
+    console.log('please......2');
   } catch (error) {
-    throw new Error('Failed to refresh token');
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    dispatch({ type: types.REFRESH_TOKEN_FAIL });
+    console.log('please......3');
+    dispatch(logout()); // 리프레시 토큰이 만료되거나 유효하지 않으면 로그아웃
   }
 };
 
@@ -176,5 +188,4 @@ export const userActions = {
   loginWithKakao,
   loginWithKakao2,
   loginWithNaver,
-  refreshToken,
 };

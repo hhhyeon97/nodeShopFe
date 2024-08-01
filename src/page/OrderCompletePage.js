@@ -40,6 +40,7 @@ const OrderCompletePage = () => {
         width={120}
         className="check-image"
         alt="greenCheck.png"
+        loading="lazy"
       />
       <h2>주문 완료</h2>
       <div>

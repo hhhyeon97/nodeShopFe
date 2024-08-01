@@ -57,6 +57,7 @@ const ImageCarousel = () => {
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const images = ['image/edit1.png', 'image/edit4.jpg', 'image/edit2.png'];
 
+  //  이미지 프리로드 -> 페이지가 로드될 때 필요한 이미지를 미리 로딩
   useEffect(() => {
     const preloadImages = () => {
       const promises = images.map((src) => {

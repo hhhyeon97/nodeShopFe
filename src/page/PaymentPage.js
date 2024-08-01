@@ -96,7 +96,7 @@ const PaymentPage = () => {
                       type="text"
                       onChange={handleFormChange}
                       required
-                      name="lastName"
+                      name="firstName"
                     />
                   </Form.Group>
 
@@ -106,7 +106,7 @@ const PaymentPage = () => {
                       type="text"
                       onChange={handleFormChange}
                       required
-                      name="firstName"
+                      name="lastName"
                     />
                   </Form.Group>
                 </Row>

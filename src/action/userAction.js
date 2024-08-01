@@ -19,6 +19,8 @@ const loginWithToken = () => async (dispatch) => {
     dispatch(logout());
   }
 };
+
+/* 기존 코드 
 const loginWithEmail =
   ({ email, password }) =>
   async (dispatch) => {
@@ -32,11 +34,31 @@ const loginWithEmail =
       dispatch({ type: types.LOGIN_FAIL, payload: error.error });
     }
   };
+*/
+
+// !! 업데이트
+const loginWithEmail =
+  ({ email, password }) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: types.LOGIN_REQUEST });
+      const response = await api.post('/auth/login', { email, password });
+      if (response.status !== 200) throw new Error(response.error);
+      localStorage.setItem('token', response.data.accessToken);
+      localStorage.setItem('refreshToken', response.data.refreshToken);
+      dispatch({ type: types.LOGIN_SUCCESS, payload: response.data });
+    } catch (error) {
+      dispatch({ type: types.LOGIN_FAIL, payload: error.error });
+    }
+  };
+
 const logout = () => async (dispatch) => {
   // user 정보 지우고
   dispatch({ type: types.LOGOUT });
   // localStorage에서 토큰 제거
   localStorage.removeItem('token');
+  // 리프레시토큰 제거
+  localStorage.removeItem('refreshToken');
   // 로그아웃 하면 카트도 reset 처리
   dispatch({ type: CART_RESET });
   // 로그아웃 하면 개인오더페이지도 reset 처리
@@ -133,6 +155,17 @@ export const resetError = () => ({
   type: types.RESET_ERROR,
 });
 
+const refreshToken = async () => {
+  try {
+    const response = await api.post('/auth/refresh-token', {
+      refreshToken: localStorage.getItem('refreshToken'),
+    });
+    return response.data.accessToken;
+  } catch (error) {
+    throw new Error('Failed to refresh token');
+  }
+};
+
 export const userActions = {
   loginWithToken,
   loginWithEmail,
@@ -143,4 +176,5 @@ export const userActions = {
   loginWithKakao,
   loginWithKakao2,
   loginWithNaver,
+  refreshToken,
 };

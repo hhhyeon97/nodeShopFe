@@ -3,13 +3,13 @@ import * as types from '../constants/user.constants';
 import { CART_RESET } from '../constants/cart.constants';
 import { ORDER_RESET } from '../constants/order.constants';
 import { commonUiActions } from './commonUiAction';
-import * as commonTypes from '../constants/commonUI.constants';
+
 const loginWithToken = () => async (dispatch) => {
   try {
     dispatch({ type: types.LOGIN_WITH_TOKEN_REQUEST });
     const response = await api.get('/user/me');
     if (response.status !== 200) throw new Error(response.error);
-    // console.log('rrr', response);
+    console.log('rrr', response);
     dispatch({
       type: types.LOGIN_WITH_TOKEN_SUCCESS,
       payload: response.data,
@@ -20,7 +20,6 @@ const loginWithToken = () => async (dispatch) => {
   }
 };
 
-/* 기존 코드 
 const loginWithEmail =
   ({ email, password }) =>
   async (dispatch) => {
@@ -28,24 +27,7 @@ const loginWithEmail =
       dispatch({ type: types.LOGIN_REQUEST });
       const response = await api.post('/auth/login', { email, password });
       if (response.status !== 200) throw new Error(response.error);
-      localStorage.setItem('token', response.data.token); // localStorage로 변경
-      dispatch({ type: types.LOGIN_SUCCESS, payload: response.data });
-    } catch (error) {
-      dispatch({ type: types.LOGIN_FAIL, payload: error.error });
-    }
-  };
-*/
-
-// !! 업데이트
-const loginWithEmail =
-  ({ email, password }) =>
-  async (dispatch) => {
-    try {
-      dispatch({ type: types.LOGIN_REQUEST });
-      const response = await api.post('/auth/login', { email, password });
-      if (response.status !== 200) throw new Error(response.error);
-      localStorage.setItem('token', response.data.accessToken);
-      localStorage.setItem('refreshToken', response.data.refreshToken);
+      localStorage.setItem('token', response.data.token);
       dispatch({ type: types.LOGIN_SUCCESS, payload: response.data });
     } catch (error) {
       dispatch({ type: types.LOGIN_FAIL, payload: error.error });
@@ -57,8 +39,6 @@ const logout = () => async (dispatch) => {
   dispatch({ type: types.LOGOUT });
   // localStorage에서 토큰 제거
   localStorage.removeItem('token');
-  // 리프레시토큰 제거
-  localStorage.removeItem('refreshToken');
   // 로그아웃 하면 카트도 reset 처리
   dispatch({ type: CART_RESET });
   // 로그아웃 하면 개인오더페이지도 reset 처리
@@ -154,29 +134,6 @@ const registerUser =
 export const resetError = () => ({
   type: types.RESET_ERROR,
 });
-
-// ! 업데이트(리프레시토큰 통해서 어세스토큰 재발급 요청)
-export const refreshToken = () => async (dispatch) => {
-  try {
-    console.log('please......1');
-    const response = await api.post('/auth/refresh-token', {
-      refreshToken: localStorage.getItem('refreshToken'),
-    });
-    if (response.status !== 200) throw new Error(response.error);
-    localStorage.setItem('token', response.data.accessToken);
-    dispatch({
-      type: types.REFRESH_TOKEN_SUCCESS,
-      payload: response.data,
-    });
-    console.log('please......2');
-  } catch (error) {
-    localStorage.removeItem('token');
-    localStorage.removeItem('refreshToken');
-    dispatch({ type: types.REFRESH_TOKEN_FAIL });
-    console.log('please......3');
-    dispatch(logout()); // 리프레시 토큰이 만료되거나 유효하지 않으면 로그아웃
-  }
-};
 
 export const userActions = {
   loginWithToken,

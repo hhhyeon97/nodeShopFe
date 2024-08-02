@@ -14,31 +14,9 @@ const AppLayout = ({ children }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
 
-  // 기존 코드
   useEffect(() => {
     dispatch(userActions.loginWithToken());
   }, []);
-
-  // 시도 코드
-  // useEffect(() => {
-  //   const checkToken = async () => {
-  //     const token = localStorage.getItem('token');
-  //     if (token) {
-  //       try {
-  //         // Test token validity
-  //         await dispatch(userActions.loginWithToken()); // Verify token is still valid
-  //       } catch (error) {
-  //         // If token is invalid, attempt to refresh
-  //         await dispatch(userActions.refreshToken());
-  //       }
-  //     } else {
-  //       // No token found
-  //       dispatch(userActions.logout());
-  //     }
-  //   };
-
-  //   checkToken();
-  // }, [dispatch]);
 
   useEffect(() => {
     dispatch(cartActions.getCartQty());

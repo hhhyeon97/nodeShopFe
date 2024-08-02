@@ -6,8 +6,6 @@ import { userActions } from '../action/userAction';
 import { GoogleLogin } from '@react-oauth/google';
 
 import '../style/login.style.css';
-import { faComment } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import SocialKakao from '../component/SocialKakao';
 import RandomStringUtil from '../utils/RandomStringUtil';
 

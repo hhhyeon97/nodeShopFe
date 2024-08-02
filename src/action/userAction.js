@@ -4,6 +4,36 @@ import { CART_RESET } from '../constants/cart.constants';
 import { ORDER_RESET } from '../constants/order.constants';
 import { commonUiActions } from './commonUiAction';
 
+// const loginWithToken = () => async (dispatch) => {
+//   try {
+//     dispatch({ type: types.LOGIN_WITH_TOKEN_REQUEST });
+//     const response = await api.get('/user/me');
+//     if (response.status !== 200) throw new Error(response.error);
+//     console.log('rrr', response);
+//     dispatch({
+//       type: types.LOGIN_WITH_TOKEN_SUCCESS,
+//       payload: response.data,
+//     });
+//   } catch (error) {
+//     dispatch({ type: types.LOGIN_WITH_TOKEN_FAIL });
+//     dispatch(logout());
+//   }
+// };
+
+// const loginWithEmail =
+//   ({ email, password }) =>
+//   async (dispatch) => {
+//     try {
+//       dispatch({ type: types.LOGIN_REQUEST });
+//       const response = await api.post('/auth/login', { email, password });
+//       if (response.status !== 200) throw new Error(response.error);
+//       localStorage.setItem('token', response.data.token);
+//       dispatch({ type: types.LOGIN_SUCCESS, payload: response.data });
+//     } catch (error) {
+//       dispatch({ type: types.LOGIN_FAIL, payload: error.error });
+//     }
+//   };
+
 const loginWithToken = () => async (dispatch) => {
   try {
     dispatch({ type: types.LOGIN_WITH_TOKEN_REQUEST });
@@ -27,7 +57,10 @@ const loginWithEmail =
       dispatch({ type: types.LOGIN_REQUEST });
       const response = await api.post('/auth/login', { email, password });
       if (response.status !== 200) throw new Error(response.error);
-      localStorage.setItem('token', response.data.token);
+
+      localStorage.setItem('token', response.data.accessToken);
+      // 리프레시 토큰은 쿠키에 저장되므로 로컬스토리지에는 저장하지 않습니다.
+
       dispatch({ type: types.LOGIN_SUCCESS, payload: response.data });
     } catch (error) {
       dispatch({ type: types.LOGIN_FAIL, payload: error.error });

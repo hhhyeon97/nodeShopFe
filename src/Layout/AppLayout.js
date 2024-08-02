@@ -14,13 +14,23 @@ const AppLayout = ({ children }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
 
-  useEffect(() => {
-    dispatch(userActions.loginWithToken());
-  }, []);
+  // useEffect(() => {
+  //   // dispatch(userActions.loginWithToken());
+  //   dispatch(userActions.autoRefreshToken());
+  // }, []);
+
+  // useEffect(() => {
+  //   dispatch(cartActions.getCartQty());
+  // }, [user, dispatch]);
 
   useEffect(() => {
+    // 어세스토큰을 자동으로 갱신
+    // dispatch(userActions.autoRefreshToken());
+    dispatch(userActions.refreshAccessToken());
+
+    // 장바구니 수량을 가져오기
     dispatch(cartActions.getCartQty());
-  }, [user, dispatch]);
+  }, [dispatch]);
 
   return (
     <div>

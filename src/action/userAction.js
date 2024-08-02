@@ -34,22 +34,67 @@ import { commonUiActions } from './commonUiAction';
 //     }
 //   };
 
-const loginWithToken = () => async (dispatch) => {
+// const loginWithToken = () => async (dispatch) => {
+//   try {
+//     dispatch({ type: types.LOGIN_WITH_TOKEN_REQUEST });
+//     const response = await api.get('/user/me');
+//     if (response.status !== 200) throw new Error(response.error);
+//     console.log('rrr', response);
+//     dispatch({
+//       type: types.LOGIN_WITH_TOKEN_SUCCESS,
+//       payload: response.data,
+//     });
+//   } catch (error) {
+//     dispatch({ type: types.LOGIN_WITH_TOKEN_FAIL });
+//     dispatch(logout());
+//   }
+// };
+
+// const loginWithEmail =
+//   ({ email, password }) =>
+//   async (dispatch) => {
+//     try {
+//       dispatch({ type: types.LOGIN_REQUEST });
+//       const response = await api.post('/auth/login', { email, password });
+//       if (response.status !== 200) throw new Error(response.error);
+
+//       localStorage.setItem('token', response.data.accessToken);
+//       // 리프레시 토큰은 쿠키에 저장되므로 로컬스토리지에는 저장하지 않습니다.
+
+//       dispatch({ type: types.LOGIN_SUCCESS, payload: response.data });
+//     } catch (error) {
+//       dispatch({ type: types.LOGIN_FAIL, payload: error.error });
+//     }
+//   };
+
+// 리프레시 토큰을 사용하여 새로운 어세스토큰을 요청하는 액션
+const refreshAccessToken = () => async (dispatch) => {
   try {
-    dispatch({ type: types.LOGIN_WITH_TOKEN_REQUEST });
-    const response = await api.get('/user/me');
-    if (response.status !== 200) throw new Error(response.error);
-    console.log('rrr', response);
+    console.log('please...........시도하자!');
+    const response = await api.post(
+      '/auth/refresh-token',
+      {},
+      { withCredentials: true },
+    );
+    const newAccessToken = response.data.accessToken;
+
+    // 새로운 어세스토큰을 로컬스토리지에 저장
+    localStorage.setItem('token', newAccessToken);
+
     dispatch({
-      type: types.LOGIN_WITH_TOKEN_SUCCESS,
-      payload: response.data,
+      type: types.LOGIN_SUCCESS,
+      payload: { token: newAccessToken }, // 새로운 어세스토큰을 payload로 전달
     });
+
+    return newAccessToken; // 새로운 어세스토큰을 반환
   } catch (error) {
-    dispatch({ type: types.LOGIN_WITH_TOKEN_FAIL });
-    dispatch(logout());
+    console.error('Refresh token error:', error);
+    dispatch(logout()); // 로그아웃 처리
+    // throw error; // 에러를 다시 throw
   }
 };
 
+// 기존 로그인 함수 수정 (토큰 만료 시 리프레시 토큰 요청)
 const loginWithEmail =
   ({ email, password }) =>
   async (dispatch) => {
@@ -59,13 +104,29 @@ const loginWithEmail =
       if (response.status !== 200) throw new Error(response.error);
 
       localStorage.setItem('token', response.data.accessToken);
-      // 리프레시 토큰은 쿠키에 저장되므로 로컬스토리지에는 저장하지 않습니다.
 
       dispatch({ type: types.LOGIN_SUCCESS, payload: response.data });
     } catch (error) {
       dispatch({ type: types.LOGIN_FAIL, payload: error.error });
     }
   };
+
+// 어세스토큰 자동 갱신 처리
+const autoRefreshToken = () => async (dispatch) => {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    const response = await api.get('/user/me');
+    if (response.status !== 200) {
+      // 토큰 만료 시 새로운 어세스토큰 요청
+      await dispatch(refreshAccessToken());
+    }
+  } catch (error) {
+    console.error('Auto-refresh token error:', error);
+    dispatch(logout()); // 오류 발생 시 로그아웃 처리
+  }
+};
 
 const logout = () => async (dispatch) => {
   // user 정보 지우고
@@ -169,7 +230,7 @@ export const resetError = () => ({
 });
 
 export const userActions = {
-  loginWithToken,
+  // loginWithToken,
   loginWithEmail,
   logout,
   loginWithGoogle,
@@ -178,4 +239,6 @@ export const userActions = {
   loginWithKakao,
   loginWithKakao2,
   loginWithNaver,
+  autoRefreshToken,
+  refreshAccessToken,
 };

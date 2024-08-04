@@ -16,7 +16,6 @@ const AppLayout = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // 어세스토큰을 자동으로 갱신
     dispatch(userActions.refreshAccessToken(navigate));
   }, []);
 

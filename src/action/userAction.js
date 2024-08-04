@@ -70,6 +70,9 @@ import { commonUiActions } from './commonUiAction';
 // 리프레시 토큰을 사용하여 새로운 어세스토큰을 요청하는 액션
 const refreshAccessToken = () => async (dispatch) => {
   try {
+    dispatch({
+      type: types.LOGIN_WITH_TOKEN_REQUEST,
+    });
     console.log('please...........시도하자!');
     const response = await api.post(
       '/auth/refresh-token',
@@ -80,17 +83,19 @@ const refreshAccessToken = () => async (dispatch) => {
 
     // 새로운 어세스토큰을 로컬스토리지에 저장
     localStorage.setItem('token', newAccessToken);
-
+    console.log('토큰로그인 성공하고싶다...', response.data);
     dispatch({
-      type: types.LOGIN_SUCCESS,
-      payload: { token: newAccessToken }, // 새로운 어세스토큰을 payload로 전달
+      type: types.LOGIN_WITH_TOKEN_SUCCESS,
+      payload: { token: newAccessToken, data: response.data },
+      // 새로운 어세스토큰을 payload로 전달
     });
 
-    return newAccessToken; // 새로운 어세스토큰을 반환
+    // return newAccessToken; // 새로운 어세스토큰을 반환
   } catch (error) {
     console.error('Refresh token error:', error);
+    dispatch({ type: types.LOGIN_FAIL });
     dispatch(logout()); // 로그아웃 처리
-    // throw error; // 에러를 다시 throw
+    throw error; // 에러를 다시 throw
   }
 };
 
@@ -114,15 +119,21 @@ const loginWithEmail =
 // 어세스토큰 자동 갱신 처리
 const autoRefreshToken = () => async (dispatch) => {
   try {
+    console.log('하이이이이이이이이이이이제발');
     const token = localStorage.getItem('token');
     if (!token) return;
-
+    dispatch({ type: types.LOGIN_WITH_TOKEN_REQUEST });
     const response = await api.get('/user/me');
     if (response.status !== 200) {
       // 토큰 만료 시 새로운 어세스토큰 요청
       await dispatch(refreshAccessToken());
     }
+    dispatch({
+      type: types.LOGIN_WITH_TOKEN_SUCCESS,
+      payload: response.data,
+    });
   } catch (error) {
+    dispatch({ type: types.LOGIN_WITH_TOKEN_FAIL });
     console.error('Auto-refresh token error:', error);
     dispatch(logout()); // 오류 발생 시 로그아웃 처리
   }
@@ -133,6 +144,11 @@ const logout = () => async (dispatch) => {
   dispatch({ type: types.LOGOUT });
   // localStorage에서 토큰 제거
   localStorage.removeItem('token');
+
+  // 쿠키에서 리프레시 토큰 제거
+  document.cookie =
+    'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
+
   // 로그아웃 하면 카트도 reset 처리
   dispatch({ type: CART_RESET });
   // 로그아웃 하면 개인오더페이지도 reset 처리

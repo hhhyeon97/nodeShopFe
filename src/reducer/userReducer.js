@@ -15,11 +15,12 @@ function userReducer(state = initialState, action) {
     case types.NAVER_LOGIN_REQUEST:
       return { ...state, loading: true };
     case types.LOGIN_SUCCESS:
-    case types.LOGIN_WITH_TOKEN_SUCCESS:
     case types.GOOGLE_LOGIN_SUCCESS:
     case types.KAKAO_LOGIN_SUCCESS:
     case types.NAVER_LOGIN_SUCCESS:
       return { ...state, loading: false, user: payload.user };
+    case types.LOGIN_WITH_TOKEN_SUCCESS:
+      return { ...state, loading: false, user: payload.data.user };
     case types.LOGIN_FAIL:
     case types.REGISTER_USER_FAIL:
     case types.KAKAO_LOGIN_FAIL:

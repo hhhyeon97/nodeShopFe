@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { Col, Row } from 'react-bootstrap';
 import Sidebar from '../component/Sidebar';
 import Navbar from '../component/Navbar';
@@ -13,14 +13,16 @@ const AppLayout = ({ children }) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // 어세스토큰을 자동으로 갱신
-    // dispatch(userActions.autoRefreshToken());
-    dispatch(userActions.refreshAccessToken());
-    // 장바구니 수량을 가져오기
+    dispatch(userActions.refreshAccessToken(navigate));
+  }, []);
+
+  useEffect(() => {
     dispatch(cartActions.getCartQty());
-  }, [dispatch]);
+  }, [user, dispatch]);
 
   return (
     <div>

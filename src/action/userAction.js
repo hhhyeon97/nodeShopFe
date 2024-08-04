@@ -68,7 +68,7 @@ import { commonUiActions } from './commonUiAction';
 //   };
 
 // 리프레시 토큰을 사용하여 새로운 어세스토큰을 요청하는 액션
-const refreshAccessToken = () => async (dispatch) => {
+const refreshAccessToken = (navigate) => async (dispatch) => {
   try {
     dispatch({
       type: types.LOGIN_WITH_TOKEN_REQUEST,
@@ -93,9 +93,12 @@ const refreshAccessToken = () => async (dispatch) => {
     // return newAccessToken; // 새로운 어세스토큰을 반환
   } catch (error) {
     console.error('Refresh token error:', error);
-    dispatch({ type: types.LOGIN_FAIL });
+    dispatch({ type: types.LOGIN_WITH_TOKEN_FAIL });
+    // dispatch(commonUiActions.showToastMessage(error.error, 'error'));
+    // 사용자에게 안내 메시지 표시
     dispatch(logout()); // 로그아웃 처리
-    throw error; // 에러를 다시 throw
+    alert('세션이 만료되었습니다. 다시 로그인 해주세요.');
+    navigate('/login');
   }
 };
 
@@ -116,44 +119,69 @@ const loginWithEmail =
     }
   };
 
-// 어세스토큰 자동 갱신 처리
-const autoRefreshToken = () => async (dispatch) => {
+// const logout = () => async (dispatch) => {
+//   // user 정보 지우고
+//   dispatch({ type: types.LOGOUT });
+//   // localStorage에서 토큰 제거
+//   localStorage.removeItem('token');
+
+//   // 쿠키에서 리프레시 토큰 제거
+//   document.cookie =
+//     'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
+
+//   // 로그아웃 하면 카트도 reset 처리
+//   dispatch({ type: CART_RESET });
+//   // 로그아웃 하면 개인오더페이지도 reset 처리
+//   dispatch({ type: ORDER_RESET });
+// };
+
+const logout = () => async (dispatch) => {
   try {
-    console.log('하이이이이이이이이이이이제발');
-    const token = localStorage.getItem('token');
-    if (!token) return;
-    dispatch({ type: types.LOGIN_WITH_TOKEN_REQUEST });
-    const response = await api.get('/user/me');
-    if (response.status !== 200) {
-      // 토큰 만료 시 새로운 어세스토큰 요청
-      await dispatch(refreshAccessToken());
-    }
-    dispatch({
-      type: types.LOGIN_WITH_TOKEN_SUCCESS,
-      payload: response.data,
-    });
+    // 로그아웃 API 호출
+    await api.post('/auth/logout');
+
+    // user 정보 지우고
+    dispatch({ type: types.LOGOUT });
+
+    // localStorage에서 토큰 제거
+    localStorage.removeItem('token');
+
+    //   // 쿠키에서 리프레시 토큰 제거
+    // document.cookie =
+    //   'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
+
+    // 로그아웃 하면 카트도 reset 처리
+    dispatch({ type: CART_RESET });
+
+    // 로그아웃 하면 개인오더페이지도 reset 처리
+    dispatch({ type: ORDER_RESET });
   } catch (error) {
-    dispatch({ type: types.LOGIN_WITH_TOKEN_FAIL });
-    console.error('Auto-refresh token error:', error);
-    dispatch(logout()); // 오류 발생 시 로그아웃 처리
+    console.error('Logout error:', error);
   }
 };
 
-const logout = () => async (dispatch) => {
-  // user 정보 지우고
-  dispatch({ type: types.LOGOUT });
-  // localStorage에서 토큰 제거
-  localStorage.removeItem('token');
+// const logout = () => async (dispatch) => {
+//   try {
+//     // 서버에서 리프레시 토큰 제거 요청
+//     await api.post('/auth/logout');
+//   } catch (error) {
+//     console.error('Logout error:', error);
+//   }
 
-  // 쿠키에서 리프레시 토큰 제거
-  document.cookie =
-    'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
+//   // 사용자 정보 지우고
+//   dispatch({ type: types.LOGOUT });
 
-  // 로그아웃 하면 카트도 reset 처리
-  dispatch({ type: CART_RESET });
-  // 로그아웃 하면 개인오더페이지도 reset 처리
-  dispatch({ type: ORDER_RESET });
-};
+//   // localStorage에서 토큰 제거
+//   localStorage.removeItem('token');
+
+//   // 쿠키에서 리프레시 토큰 제거
+//   document.cookie =
+//     'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
+
+//   // 로그아웃 후 카트 및 개인 오더 페이지 reset 처리
+//   dispatch({ type: CART_RESET });
+//   dispatch({ type: ORDER_RESET });
+// };
 
 const loginWithGoogle = (token) => async (dispatch) => {
   try {
@@ -255,6 +283,5 @@ export const userActions = {
   loginWithKakao,
   loginWithKakao2,
   loginWithNaver,
-  autoRefreshToken,
   refreshAccessToken,
 };
